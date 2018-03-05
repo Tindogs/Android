@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tindogs</string>
+    <string name="login_placeholder_user">Usuario</string>
+    <string name="login_placeholder_password">Contraseña</string>
+    <string name="login_button_login_text">Entrar</string>
+    <string name="login_register_now">¿No tienes tu cuenta todavía? ¡Regístrate ahora!</string>
+    <string name="login_button_register">Registrarse</string>
+</resources>
