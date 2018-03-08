@@ -4,6 +4,6 @@ import com.appvengers.business.models.User
 
 interface GetUserInteractor
 {
-    fun execute(username: String, password: String): User
-    fun execute(userId: Long): User
+    fun execute(username: String, password: String, success: (user: User) -> Unit, error: (message: String) -> Unit)
+    fun execute(userId: Long, success: (user: User) -> Unit, error: (message: String) -> Unit)
 }

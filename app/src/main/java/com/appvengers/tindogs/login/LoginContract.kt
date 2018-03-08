@@ -1,4 +1,4 @@
-package com.appvengers.tindogs
+package com.appvengers.tindogs.login
 
 import com.appvengers.business.models.User
 
@@ -9,10 +9,12 @@ interface LoginContract
     {
         fun openRegisterForm()
         fun openUserProfile(user: User)
+        fun setLoginError(message: String)
     }
 
     interface Presenter
     {
         fun getUser(userName: String, password: String)
+        fun goToRegister()
     }
 }

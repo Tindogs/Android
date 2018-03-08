@@ -1,9 +1,40 @@
 <resources>
     <string name="app_name">Tindogs</string>
-    <string name="login_placeholder_name">Name</string>
     <string name="login_placeholder_user">User name</string>
     <string name="login_placeholder_password">Password</string>
     <string name="login_button_login_text">Log in</string>
     <string name="login_register_now">Don\'t you have an account yet? Register now!</string>
     <string name="login_button_register">Register</string>
+    <string name="register_placeholder_first_name">Name</string>
+    <string name="register_placeholder_last_name">Last Name</string>
+    <string name="register_placeholder_phone">Phone</string>
+    <string name="register_placeholder_mobile_phone">Mobile Phone</string>
+    <string name="register_placeholder_email">Email</string>
+    <string name="register_placeholder_user_name">User Name</string>
+    <string name="register_placeholder_password">Password</string>
+    <string name="register_button_save">Save</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="login_validation_user_not_blank">User cannot be empty</string>
+    <string name="login_validation_password_not_blank">Password cannot be empty</string>
+    <string name="register_placeholder_confirm_email">Confirm email</string>
+    <string name="register_placeholder_confirm_password">Confirm password</string>
+    <string name="register_validation_first_name">First name cannot be empty</string>
+    <string name="register_validation_last_name">Last name cannot be empty</string>
+    <string name="register_validation_email">Enter a valid email</string>
+    <string name="register_validation_email_confirm">Emails are not equal</string>
+    <string name="register_validation_password">Password must contain one upper case letter, one lower case letter, one number and the length must be between 8 and 16</string>
+    <string name="register_validation_password_confirm">Pasword are not equal</string>
 </resources>

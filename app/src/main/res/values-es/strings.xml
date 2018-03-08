@@ -6,4 +6,22 @@
     <string name="login_button_login_text">Entrar</string>
     <string name="login_register_now">¿No tienes tu cuenta todavía? ¡Regístrate ahora!</string>
     <string name="login_button_register">Registrarse</string>
+    <string name="register_placeholder_first_name">Nombre</string>
+    <string name="register_placeholder_last_name">Apellidos</string>
+    <string name="register_placeholder_phone">Teléfono</string>
+    <string name="register_placeholder_mobile_phone">Móvil</string>
+    <string name="register_placeholder_email">Correo Electrónico</string>
+    <string name="register_placeholder_user_name">Nombre de ususario</string>
+    <string name="register_placeholder_password">Contraseña</string>
+    <string name="register_button_save">Guardar</string>
+    <string name="login_validation_user_not_blank">El usuario no puede estar vacío</string>
+    <string name="login_validation_password_not_blank">La contraseña no puede estar vacía</string>
+    <string name="register_placeholder_confirm_email">Confirm email</string>
+    <string name="register_placeholder_confirm_password">Confirm password</string>
+    <string name="register_validation_first_name">First name cannot be empty</string>
+    <string name="register_validation_last_name">Last name cannot be empty</string>
+    <string name="register_validation_email">Enter a valid email</string>
+    <string name="register_validation_email_confirm">Emails are not equal</string>
+    <string name="register_validation_password">Password must contain one upper case letter, one lower case letter, one number and the length must be more than 8</string>
+    <string name="register_validation_password_confirm">Paswords are not equal</string>
 </resources>

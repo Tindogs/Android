@@ -1,6 +1,6 @@
-package com.appvengers.business.models
+package com.appvengers.repository.models
 
-data class Dog(
+data class DogEntity(
         val _id: Long,
         val name: String,
         val age: Double,
@@ -9,6 +9,6 @@ data class Dog(
         val color: String,
         val description: String,
         val photos: List<String>,
-        val query: Query,
-        val likesFromOthers: List<DogLike>
+        val query: QueryEntity,
+        val likesFromOthers: List<DogLikeEntity>
 )
