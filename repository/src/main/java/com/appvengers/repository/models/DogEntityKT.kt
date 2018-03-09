@@ -1,6 +1,6 @@
 package com.appvengers.repository.models
 
-data class DogEntity(
+data class DogEntityKT(
         val _id: Long,
         val name: String,
         val age: Double,

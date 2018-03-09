@@ -1,6 +1,6 @@
 package com.appvengers.repository.models
 
-data class QueryEntity(
+data class QueryEntityKT(
         val ageFrom: Double,
         val ageTo: Double,
         val maxKms: Double,

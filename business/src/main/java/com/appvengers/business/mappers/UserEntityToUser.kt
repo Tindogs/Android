@@ -11,12 +11,12 @@ import com.appvengers.repository.models.UserEntity
 
 internal fun UserEntity.map(): User
 {
-    return User(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, this.coordinates, this.dogs.map { it.map() })
+    return User(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, Pair(this.latitude, this.longitude), this.dogs.map { it.map() })
 }
 
 internal fun DogEntity.map(): Dog
 {
-    return Dog(this ._id, this.name, this.age, this.breed, this.pureBreed, this.color, this.description, this.photos, this.query.map(), this.likesFromOthers.map { it.map() })
+    return Dog(this ._id, this.name, this.age, this.breed, this.pureBreed, this.color, this.description, this.photos.map { it.photo }, this.query.map(), this.likesFromOthers.map { it.map() })
 }
 
 internal fun QueryEntity.map(): Query
