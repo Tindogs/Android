@@ -1,6 +1,6 @@
-package com.appvengers.repository.models
+package com.appvengers.repository.network.model
 
-data class QueryEntityKT(
+data class QueryJsonEntity(
         val ageFrom: Double,
         val ageTo: Double,
         val maxKms: Double,

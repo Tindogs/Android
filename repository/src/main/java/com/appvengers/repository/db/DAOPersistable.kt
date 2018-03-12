@@ -3,8 +3,7 @@ package com.appvengers.repository.db
 interface DAOWritable<in T> {
     fun insert(element: T): Long
 
-    fun insert(elements: List<T>): Boolean
-    /**
+     /**
      * Actualiza el elemento con databaseID con los datos de elemento
      * Devuelve el número de registros afectados
      */

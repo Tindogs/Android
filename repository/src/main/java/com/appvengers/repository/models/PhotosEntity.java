@@ -8,12 +8,16 @@ import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class PhotosEntity {
-    @Id
+
+    @Id(autoincrement = true)
+    private Long _id;
+
     private Long dogId;
     @NotNull
     private String photo;
-    @Generated(hash = 1927961985)
-    public PhotosEntity(Long dogId, @NotNull String photo) {
+    @Generated(hash = 1471545893)
+    public PhotosEntity(Long _id, Long dogId, @NotNull String photo) {
+        this._id = _id;
         this.dogId = dogId;
         this.photo = photo;
     }
@@ -31,6 +35,12 @@ public class PhotosEntity {
     }
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+    public Long get_id() {
+        return this._id;
+    }
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
 

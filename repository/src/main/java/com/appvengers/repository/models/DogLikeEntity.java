@@ -9,18 +9,21 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class DogLikeEntity {
 
-    @Id
+    @Id(autoincrement = true)
     private Long _id;
 
-    private Long dogId;
+    private Long dogIdLiked;
+    private Long dogIdWhoLikes;
 
     @NotNull
     private String name;
 
-    @Generated(hash = 1762202631)
-    public DogLikeEntity(Long _id, Long dogId, @NotNull String name) {
+    @Generated(hash = 1350332157)
+    public DogLikeEntity(Long _id, Long dogIdLiked, Long dogIdWhoLikes,
+            @NotNull String name) {
         this._id = _id;
-        this.dogId = dogId;
+        this.dogIdLiked = dogIdLiked;
+        this.dogIdWhoLikes = dogIdWhoLikes;
         this.name = name;
     }
 
@@ -36,12 +39,12 @@ public class DogLikeEntity {
         this._id = _id;
     }
 
-    public Long getDogId() {
-        return this.dogId;
+    public Long getDogIdWhoLikes() {
+        return this.dogIdWhoLikes;
     }
 
-    public void setDogId(Long dogId) {
-        this.dogId = dogId;
+    public void setDogIdWhoLikes(Long dogIdWhoLikes) {
+        this.dogIdWhoLikes = dogIdWhoLikes;
     }
 
     public String getName() {
@@ -50,5 +53,13 @@ public class DogLikeEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getDogIdLiked() {
+        return this.dogIdLiked;
+    }
+
+    public void setDogIdLiked(Long dogIdLiked) {
+        this.dogIdLiked = dogIdLiked;
     }
 }

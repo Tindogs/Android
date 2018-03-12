@@ -30,14 +30,16 @@ public class DogEntity {
     private Boolean pureBreed;
     private String color;
     private String description;
+
     @ToMany(referencedJoinProperty = "dogId")
     private
     List<PhotosEntity> photos;
+
     @ToOne(joinProperty = "_id")
     private QueryEntity query;
-    @ToMany(referencedJoinProperty = "dogId")
-    private
-    List<DogLikeEntity> likesFromOthers;
+
+    @ToMany(referencedJoinProperty = "dogIdLiked")
+    private List<DogLikeEntity> likesFromOthers;
 
 /** Used to resolve relations */
 @Generated(hash = 2040040024)

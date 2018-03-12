@@ -1,6 +1,6 @@
-package com.appvengers.repository.models
+package com.appvengers.repository.network.model
 
-data class DogEntityKT(
+data class DogJsonEntity(
         val _id: Long,
         val name: String,
         val age: Double,
@@ -9,6 +9,6 @@ data class DogEntityKT(
         val color: String,
         val description: String,
         val photos: List<String>,
-        val query: QueryEntity,
-        val likesFromOthers: List<DogLikeEntity>
+        val query: QueryJsonEntity,
+        val likesFromOthers: List<DogLikeJsonEntity>
 )

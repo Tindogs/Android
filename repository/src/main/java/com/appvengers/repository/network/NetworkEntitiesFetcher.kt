@@ -1,8 +1,8 @@
 package com.appvengers.repository.network
 
-import com.appvengers.repository.models.UserEntity
+import com.appvengers.repository.network.model.UserJsonEntity
 
 interface NetworkEntitiesFetcher
 {
-    fun getUser(username: String, password: String, success: (user: UserEntity) -> Unit, error: (message: String) -> Unit)
+    fun getUser(username: String, password: String, success: (user: UserJsonEntity) -> Unit, error: (message: String) -> Unit)
 }
