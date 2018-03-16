@@ -1,7 +1,4 @@
-package com.appvengers.repository.models;
-
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
+package com.appvengers.db;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -16,14 +13,12 @@ import org.greenrobot.greendao.DaoException;
 public class UserEntity {
 
     @Id
-    private Long _id;
     @org.greenrobot.greendao.annotation.NotNull
+    private String _id;
     private String firstName;
-    @org.greenrobot.greendao.annotation.NotNull
     private String lastName;
     private String phone;
     private String mobilePhone;
-    @org.greenrobot.greendao.annotation.NotNull
     private String email;
     @org.greenrobot.greendao.annotation.NotNull
     private String userName;
@@ -39,8 +34,8 @@ public class UserEntity {
     @Generated(hash = 1814575071)
     private transient UserEntityDao myDao;
 
-    @Generated(hash = 225746991)
-    public UserEntity(Long _id, String firstName, String lastName, String phone,
+    @Generated(hash = 2005000749)
+    public UserEntity(String _id, String firstName, String lastName, String phone,
             String mobilePhone, String email, String userName, Double latitude,
             Double longitude) {
         this._id = _id;
@@ -58,11 +53,11 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public Long get_id() {
+    public String get_id() {
         return this._id;
     }
 
-    public void set_id(Long _id) {
+    public void set_id(String _id) {
         this._id = _id;
     }
 
@@ -200,6 +195,4 @@ public class UserEntity {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserEntityDao() : null;
     }
-
-  
 }

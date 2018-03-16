@@ -2,6 +2,6 @@ package com.appvengers.business.models
 
 
 data class DogLike(
-        val _id: Long,
+        val dogWhoLikesId: String,
         val name: String
 )

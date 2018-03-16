@@ -14,7 +14,7 @@ class CreateUserInteractorFake: CreateUserInteractor
                          success: (user: User) -> Unit,
                          error: (message: String) -> Unit)
     {
-        success( User(1, "Pepito", "Gomez", "9999999", "9999999", "fulano@gmail.com", "Pepito1", Pair(45.0, 34.0), listOf()))
+        success( User("abc", "Pepito", "Gomez", "9999999", "9999999", "fulano@gmail.com", "Pepito1", Pair(45.0, 34.0), listOf()))
         //error("Ha habido un error")
     }
 }

@@ -14,7 +14,7 @@ interface LoginContract
 
     interface Presenter
     {
-        fun getUser(userName: String, password: String)
+        fun getUser(email: String, password: String)
         fun goToRegister()
     }
 }

@@ -1,7 +1,7 @@
 package com.appvengers.business.models
 
 data class Dog(
-        val _id: Long,
+        val _id: String,
         val name: String,
         val age: Double,
         val breed: String,

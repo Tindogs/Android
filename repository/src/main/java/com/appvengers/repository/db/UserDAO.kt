@@ -2,12 +2,11 @@
 package com.appvengers.repository.db
 
 import android.util.Log
+import com.appvengers.repository.models.UserEntityWrapper
+import com.appvengers.db.DaoSession
 import com.appvengers.repository.mappers.map
 import com.appvengers.repository.mappers.mapToPhotoEntity
-import com.appvengers.repository.models.DaoSession
-import com.appvengers.repository.models.UserEntityWrapper
-import org.greenrobot.greendao.rx.RxDao
-import org.greenrobot.greendao.rx.RxQuery
+import com.appvengers.repository.models.DogEntityWrapper
 
 //TODO("Gestion de errores")
 internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEntityWrapper>
@@ -18,7 +17,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
     private val photosEntityDao by lazy { session.photosEntityDao }
     private val queryEntityDao by lazy { session.queryEntityDao }
 
-    override fun insert(element: UserEntityWrapper): Long
+    override fun insert(element: UserEntityWrapper): String
     {
         val db = session.database
         db.beginTransaction()
@@ -27,18 +26,12 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
             userEntityDAO.insert(element.map())
             insertOrReplaceDogsFromUser(element)
             db.setTransactionSuccessful()
-        } catch (ex: Exception)
-        {
-            Log.e("Tindogs", "Error al insertar usuario(" + element.toString() + ") de la base de datos: " + ex.localizedMessage)
-            return -1
         }
         finally
         {
             db.endTransaction()
         }
-
         return element._id
-
     }
 
     override fun update(element: UserEntityWrapper): Boolean
@@ -76,7 +69,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
     }
 
-    override fun delete(databaseID: Long): Boolean
+    override fun delete(databaseID: String): Boolean
     {
         return try
         {
@@ -85,7 +78,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
         catch (e: Exception)
         {
-            Log.e("Tindogs", "Error al borrar usuario (" + databaseID.toString() + ") de la base de datos: " + e.localizedMessage)
+            Log.e("Tindogs", "Error al borrar usuario (" + databaseID + ") de la base de datos: " + e.localizedMessage)
             false
         }
     }
@@ -104,9 +97,9 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
     }
 
-    override fun query(databaseID: Long): UserEntityWrapper?
+    override fun query(databaseID: String): UserEntityWrapper?
     {
-        return userEntityDAO.load(databaseID).map()
+        TODO() // userEntityDAO.load(databaseID).map()
     }
 
     override fun queryAll(): List<UserEntityWrapper>
@@ -118,18 +111,18 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
     {
         if (userEntityWrapper.dogs.count() > 0)
         {
-            userEntityWrapper.dogs.forEach {
+            userEntityWrapper.dogs.forEach { dog: DogEntityWrapper ->
 
-                val dogId = dogEntityDao.insertOrReplace(it.map(userEntityWrapper._id))
+                dogEntityDao.insertOrReplace(dog.map(userEntityWrapper._id))
 
-                it.likesFromOthers.forEach{
-                    dogLikeEntityDao.insertOrReplace(it.map(dogId))
+                dog.likesFromOthers.forEach{
+                    dogLikeEntityDao.insertOrReplace(it.map(dog._id))
                 }
 
-                it.photos.forEach {
-                    photosEntityDao.insertOrReplace(it.mapToPhotoEntity(dogId))
+                dog.photos.forEach {
+                    photosEntityDao.insertOrReplace(it.mapToPhotoEntity(dog._id))
                 }
-                queryEntityDao.insertOrReplace(it.query.map(dogId))
+                queryEntityDao.insertOrReplace(dog.query.map(dog._id))
 
             }
         }

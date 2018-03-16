@@ -1,10 +1,11 @@
 package com.appvengers.repository.cache
 
 import com.appvengers.repository.models.*
+import io.reactivex.Flowable
 
 interface Cache
 {
-    fun getUser(userId: Long, success: (user: UserEntityWrapper) -> Unit, error: (message: String) -> Unit)
-    fun saveUser(userEntityWrapper: UserEntityWrapper, success: () -> Unit, error: (message: String) -> Unit)
+    fun getUser(userId: String): Flowable<UserEntityWrapper>
+    fun saveUser(userEntityWrapper: UserEntityWrapper): Flowable<String>
 
 }

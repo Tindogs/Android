@@ -1,33 +1,35 @@
 package com.appvengers.repository.cache
 
+import android.util.Log
 import com.appvengers.repository.db.DAOPersistable
 import com.appvengers.repository.models.*
+import io.reactivex.Flowable
+import io.reactivex.BackpressureStrategy
+import io.reactivex.FlowableOnSubscribe
+
 
 internal class CacheImpl(private val daoPersistable: DAOPersistable<UserEntityWrapper>): Cache
 {
 
-    override fun getUser(userId: Long, success: (user: UserEntityWrapper) -> Unit, error: (message: String) -> Unit)
+    override fun getUser(userId: String): Flowable<UserEntityWrapper>
     {
-        val user = daoPersistable.query(userId)
-        if (user == null)
-        {
-            error("No se ha encontrado el usuario")
-        }
-        else
-        {
-            success(user)
-        }
+        return Flowable.create<UserEntityWrapper>({
+            val user = daoPersistable.query(userId)
+            if (user != null)
+            {
+                Log.d("Tingogs", "User obtenido de cache: " + user.toString() )
+                it.onNext(user)
+            }
+            it.onComplete()
+        },BackpressureStrategy.BUFFER)
+
     }
 
-    override fun saveUser(userEntityWrapper: UserEntityWrapper, success: () -> Unit, error: (message: String) -> Unit)
+    override fun saveUser(userEntityWrapper: UserEntityWrapper): Flowable<String>
     {
-        if (daoPersistable.insert(userEntityWrapper) == -1L)
-        {
-            error("Error al insertar")
-        }
-        else
-        {
-            success()
+        return Flowable.fromCallable {
+            daoPersistable.deleteAll()
+            daoPersistable.insert(userEntityWrapper)
         }
     }
 

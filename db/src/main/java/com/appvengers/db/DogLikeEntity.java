@@ -1,4 +1,4 @@
-package com.appvengers.repository.models;
+package com.appvengers.db;
 
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -12,14 +12,14 @@ public class DogLikeEntity {
     @Id(autoincrement = true)
     private Long _id;
 
-    private Long dogIdLiked;
-    private Long dogIdWhoLikes;
+    private String dogIdLiked;
+    private String dogIdWhoLikes;
 
     @NotNull
     private String name;
 
-    @Generated(hash = 1350332157)
-    public DogLikeEntity(Long _id, Long dogIdLiked, Long dogIdWhoLikes,
+    @Generated(hash = 623598221)
+    public DogLikeEntity(Long _id, String dogIdLiked, String dogIdWhoLikes,
             @NotNull String name) {
         this._id = _id;
         this.dogIdLiked = dogIdLiked;
@@ -39,11 +39,19 @@ public class DogLikeEntity {
         this._id = _id;
     }
 
-    public Long getDogIdWhoLikes() {
+    public String getDogIdLiked() {
+        return this.dogIdLiked;
+    }
+
+    public void setDogIdLiked(String dogIdLiked) {
+        this.dogIdLiked = dogIdLiked;
+    }
+
+    public String getDogIdWhoLikes() {
         return this.dogIdWhoLikes;
     }
 
-    public void setDogIdWhoLikes(Long dogIdWhoLikes) {
+    public void setDogIdWhoLikes(String dogIdWhoLikes) {
         this.dogIdWhoLikes = dogIdWhoLikes;
     }
 
@@ -55,11 +63,4 @@ public class DogLikeEntity {
         this.name = name;
     }
 
-    public Long getDogIdLiked() {
-        return this.dogIdLiked;
-    }
-
-    public void setDogIdLiked(Long dogIdLiked) {
-        this.dogIdLiked = dogIdLiked;
-    }
 }

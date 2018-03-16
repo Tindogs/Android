@@ -7,9 +7,9 @@ import com.appvengers.business.mappers.map
 
 class GetUserInteractorImpl(private val repository: Repository): GetUserInteractor
 {
-    override fun execute(username: String, password: String, success: (user: User) -> Unit, error: (message: String) -> Unit)
+    override fun execute(email: String, password: String, success: (user: User) -> Unit, error: (message: String) -> Unit)
     {
-        repository.getUser(username, password,
+        repository.getUser(email, password,
                 success = {userEntity: UserEntityWrapper ->
                     success(userEntity.map())
                 },
@@ -18,7 +18,7 @@ class GetUserInteractorImpl(private val repository: Repository): GetUserInteract
                 })
     }
 
-    override fun execute(userId: Long, success: (user: User) -> Unit, error: (message: String) -> Unit)
+    override fun execute(userId: String, success: (user: User) -> Unit, error: (message: String) -> Unit)
     {
         repository.getUser(userId,
                 success = {userEntity: UserEntityWrapper ->

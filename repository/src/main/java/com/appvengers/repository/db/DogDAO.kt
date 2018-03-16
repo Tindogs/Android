@@ -1,17 +1,17 @@
 package com.appvengers.repository.db
 
 import com.appvengers.repository.mappers.map
-import com.appvengers.repository.models.DaoSession
-import com.appvengers.repository.models.DogEntity
 import com.appvengers.repository.models.DogEntityWrapper
+import com.appvengers.db.DaoSession
 
-class DogDAO(private val session: DaoSession): DAOPersistable<DogEntityWrapper>
+class DogDAO(session: DaoSession): DAOPersistable<DogEntityWrapper>
 {
     private val dogEntityDao = session.dogEntityDao
 
-    override fun insert(element: DogEntityWrapper): Long
+    override fun insert(element: DogEntityWrapper): String
     {
-        return dogEntityDao.insert(element.map(element.userId))
+        dogEntityDao.insert(element.map(element.userId))
+        return element._id
     }
 
 
@@ -28,7 +28,7 @@ class DogDAO(private val session: DaoSession): DAOPersistable<DogEntityWrapper>
         return true
     }
 
-    override fun delete(databaseID: Long): Boolean
+    override fun delete(databaseID: String): Boolean
     {
         dogEntityDao.deleteByKey(databaseID)
         return true
@@ -40,9 +40,9 @@ class DogDAO(private val session: DaoSession): DAOPersistable<DogEntityWrapper>
         return true
     }
 
-    override fun query(databaseID: Long): DogEntityWrapper?
+    override fun query(databaseID: String): DogEntityWrapper?
     {
-        return dogEntityDao.load(databaseID).map()
+        TODO() // dogEntityDao.load(databaseID).map()
     }
 
     override fun queryAll(): List<DogEntityWrapper>

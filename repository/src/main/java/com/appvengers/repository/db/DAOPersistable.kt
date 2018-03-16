@@ -1,7 +1,8 @@
 package com.appvengers.repository.db
 
 interface DAOWritable<in T> {
-    fun insert(element: T): Long
+
+    fun insert(element: T): String
 
      /**
      * Actualiza el elemento con databaseID con los datos de elemento
@@ -16,12 +17,12 @@ interface DAOWritable<in T> {
     /**
      * delete the element with id from DB
      */
-    fun delete(databaseID: Long): Boolean
+    fun delete(databaseID: String): Boolean
     fun deleteAll(): Boolean
 }
 
 interface  DAOReadable<out T> {
-    fun query(databaseID: Long): T?
+    fun query(databaseID: String): T?
     fun queryAll(): List<T>
 
 }

@@ -1,4 +1,4 @@
-package com.appvengers.repository.models;
+package com.appvengers.db;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -8,14 +8,14 @@ import org.greenrobot.greendao.annotation.Generated;
 public class QueryEntity {
 
     @Id
-    private Long dogId;
+    private String dogId;
     private Double ageFrom;
     private Double ageTo;
     private Double maxKms;
     private Boolean reproductive;
     private String breed;
-    @Generated(hash = 1189157516)
-    public QueryEntity(Long dogId, Double ageFrom, Double ageTo, Double maxKms,
+    @Generated(hash = 682104673)
+    public QueryEntity(String dogId, Double ageFrom, Double ageTo, Double maxKms,
             Boolean reproductive, String breed) {
         this.dogId = dogId;
         this.ageFrom = ageFrom;
@@ -27,10 +27,10 @@ public class QueryEntity {
     @Generated(hash = 2053696084)
     public QueryEntity() {
     }
-    public Long getDogId() {
+    public String getDogId() {
         return this.dogId;
     }
-    public void setDogId(Long dogId) {
+    public void setDogId(String dogId) {
         this.dogId = dogId;
     }
     public Double getAgeFrom() {
@@ -63,6 +63,5 @@ public class QueryEntity {
     public void setBreed(String breed) {
         this.breed = breed;
     }
-
 
 }

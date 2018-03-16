@@ -1,3 +1,3 @@
 package com.appvengers.repository.models
 
-data class DogLikeEntityWrapper(val dogWhoLikes: Long, val name: String)
+data class DogLikeEntityWrapper(val dogWhoLikes: String, val name: String)

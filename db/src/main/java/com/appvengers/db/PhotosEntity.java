@@ -1,4 +1,4 @@
-package com.appvengers.repository.models;
+package com.appvengers.db;
 
 import org.greenrobot.greendao.annotation.NotNull;
 
@@ -12,11 +12,11 @@ public class PhotosEntity {
     @Id(autoincrement = true)
     private Long _id;
 
-    private Long dogId;
+    private String dogId;
     @NotNull
     private String photo;
-    @Generated(hash = 1471545893)
-    public PhotosEntity(Long _id, Long dogId, @NotNull String photo) {
+    @Generated(hash = 1424223146)
+    public PhotosEntity(Long _id, String dogId, @NotNull String photo) {
         this._id = _id;
         this.dogId = dogId;
         this.photo = photo;
@@ -24,10 +24,16 @@ public class PhotosEntity {
     @Generated(hash = 1479617457)
     public PhotosEntity() {
     }
-    public Long getDogId() {
+    public Long get_id() {
+        return this._id;
+    }
+    public void set_id(Long _id) {
+        this._id = _id;
+    }
+    public String getDogId() {
         return this.dogId;
     }
-    public void setDogId(Long dogId) {
+    public void setDogId(String dogId) {
         this.dogId = dogId;
     }
     public String getPhoto() {
@@ -36,12 +42,4 @@ public class PhotosEntity {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    public Long get_id() {
-        return this._id;
-    }
-    public void set_id(Long _id) {
-        this._id = _id;
-    }
-
-
 }

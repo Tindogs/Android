@@ -1,7 +1,7 @@
 package com.appvengers.repository.models
 
 data class DogEntityWrapper(
-        val _id: Long,
+        val _id: String,
         val name: String,
         val age: Double,
         val breed: String,
@@ -11,5 +11,5 @@ data class DogEntityWrapper(
         val photos: List<String>,
         val query: QueryEntityWrapper,
         val likesFromOthers: List<DogLikeEntityWrapper>,
-        val userId: Long
+        val userId: String
 )

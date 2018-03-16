@@ -10,9 +10,9 @@ class LoginPresenter(private val view: LoginContract.View, private val getUserIn
         view.openRegisterForm()
     }
 
-    override fun getUser(userName: String, password: String)
+    override fun getUser(email: String, password: String)
     {
-       getUserInteractor.execute(userName, password,
+       getUserInteractor.execute(email, password,
                 success = {user ->
                     view.openUserProfile(user)
                 },
