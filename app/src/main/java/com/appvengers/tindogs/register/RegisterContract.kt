@@ -6,8 +6,9 @@ interface RegisterContract
 {
     interface View
     {
-        fun openUserProfile(user: User)
+        fun openUserProfile()
         fun setRegisterError(message: String)
+        fun saveTokenAndUserId(token: String, userId: String)
     }
     interface Presenter
     {

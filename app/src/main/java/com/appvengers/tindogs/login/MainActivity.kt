@@ -1,32 +1,50 @@
 package com.appvengers.tindogs.login
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.appvengers.business.models.User
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.R
 import com.appvengers.tindogs.di.ObjectInjector
 import com.appvengers.tindogs.router.Router
+import com.appvengers.utils.LogTindogs
+import com.appvengers.utils.PreferencesRepository
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.lang.ref.WeakReference
 
 class MainActivity : BaseActivity(), LoginContract.View
 {
+
+
     private lateinit var presenter: LoginContract.Presenter
     private lateinit var validator: AwesomeValidation
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setUpToolbar()
         associatePresenter()
+        checkToken()
+        setUpToolbar()
         setup()
 
     }
-
+    private fun checkToken()
+    {
+        LogTindogs("Check token", Log.DEBUG)
+        val result = getTokenAndUserId()
+        if (result != null)
+        {
+            LogTindogs("Token Got: " + result.second, Log.DEBUG)
+            presenter.getUserById(result.second, result.first)
+        }
+    }
     private fun setup()
     {
         addValidation()
@@ -48,7 +66,7 @@ class MainActivity : BaseActivity(), LoginContract.View
 
     private fun associatePresenter()
     {
-        presenter = LoginPresenter(this, ObjectInjector().buildGetUserInteractor(this))
+        presenter = LoginPresenter(this, ObjectInjector.buildGetUserInteractor(this))
     }
 
     override fun openRegisterForm()
@@ -56,13 +74,24 @@ class MainActivity : BaseActivity(), LoginContract.View
         Router.navigateToRegisterForm(this)
     }
 
-    override fun openUserProfile(user: User)
+    override fun openUserProfile()
     {
-        Router.navigateToUserProfile(this, user)
+        Router.navigateToUserProfile(this)
     }
 
     override fun setLoginError(message: String)
     {
         setError(login_main_view, message)
+    }
+
+    override fun saveTokenAndUserId(token: String, userId: String)
+    {
+        val preferences = PreferencesRepository(WeakReference(this))
+        preferences.saveTokenAndUserId(
+                getString(R.string.sharedPerferencesFileName),
+                getString(R.string.sharedPreferencesToken),
+                token,
+                getString(R.string.sharedPreferencesUserId),
+                userId)
     }
 }

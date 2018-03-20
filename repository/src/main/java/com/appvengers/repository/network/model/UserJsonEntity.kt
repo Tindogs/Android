@@ -4,15 +4,16 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class UserJsonEntity(
-        @SerializedName("userid")
-        val _id: String,
+         val _id: String,
+        @SerializedName("first_name")
         val firstName: String?,
+        @SerializedName("last_name")
         val lastName: String?,
         val phone: String?,
         val mobilePhone: String?,
         val email: String?,
         @SerializedName("username")
         val userName: String,
-        val token: String,
-        val coordinates: Pair<Double, Double>?,
+        val coordinates: List<Double>?,
         val dogs: List<DogJsonEntity>?)
+

@@ -7,6 +7,7 @@ import com.appvengers.db.DaoSession
 import com.appvengers.repository.mappers.map
 import com.appvengers.repository.mappers.mapToPhotoEntity
 import com.appvengers.repository.models.DogEntityWrapper
+import com.appvengers.utils.LogTindogs
 
 //TODO("Gestion de errores")
 internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEntityWrapper>
@@ -64,7 +65,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
         catch (e: Exception)
         {
-            Log.e("Tindogs", "Error al borrar usuario (" + element.toString() + ") de la base de datos: " + e.localizedMessage)
+            LogTindogs("Error al borrar usuario (" + element.toString() + ") de la base de datos: " + e.localizedMessage, Log.ERROR)
             false
         }
     }
@@ -78,7 +79,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
         catch (e: Exception)
         {
-            Log.e("Tindogs", "Error al borrar usuario (" + databaseID + ") de la base de datos: " + e.localizedMessage)
+            LogTindogs("Error al borrar usuario (" + databaseID + ") de la base de datos: " + e.localizedMessage, Log.ERROR)
             false
         }
     }
@@ -92,14 +93,14 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         }
         catch (e: Exception)
         {
-            Log.e("Tindogs", "Error al borrar todos los usuarios de la base de datos: " + e.localizedMessage)
+            LogTindogs("Error al borrar todos los usuarios de la base de datos: " + e.localizedMessage, Log.ERROR)
             false
         }
     }
 
     override fun query(databaseID: String): UserEntityWrapper?
     {
-        TODO() // userEntityDAO.load(databaseID).map()
+       return userEntityDAO.load(databaseID).map()
     }
 
     override fun queryAll(): List<UserEntityWrapper>

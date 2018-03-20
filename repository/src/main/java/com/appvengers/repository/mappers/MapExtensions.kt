@@ -4,11 +4,8 @@ import com.appvengers.db.DogEntity
 import com.appvengers.db.DogLikeEntity
 import com.appvengers.db.PhotosEntity
 import com.appvengers.repository.models.*
-import com.appvengers.repository.network.model.DogJsonEntity
-import com.appvengers.repository.network.model.DogLikeJsonEntity
-import com.appvengers.repository.network.model.QueryJsonEntity
-import com.appvengers.repository.network.model.UserJsonEntity
 import com.appvengers.repository.models.UserEntityWrapper
+import com.appvengers.repository.network.model.*
 
 fun UserEntityWrapper.map(): com.appvengers.db.UserEntity
 {
@@ -35,9 +32,22 @@ fun UserJsonEntity.map(): UserEntityWrapper
     val mobilePhone = this.mobilePhone ?: ""
     val email = this.email ?: ""
     val dogs = this.dogs ?: listOf()
-    return UserEntityWrapper(this._id, firstName, lastName, phone, mobilePhone, email, this.userName, this.coordinates, dogs.map { it.map(this._id) })
+    val coordinates = if (this.coordinates != null && this.coordinates.count() > 0)
+    {
+        Pair(this.coordinates[0], this.coordinates[1])
+    }
+    else
+    {
+        null
+    }
+    return UserEntityWrapper(this._id, firstName, lastName, phone, mobilePhone, email, this.userName, coordinates, dogs.map { it.map(this._id) })
 }
 
+fun ResultUserJson.map(): UserEntityWrapper
+{
+
+    return this.result.map()
+}
 fun DogEntityWrapper.map(userId: String): com.appvengers.db.DogEntity
 {
     val dog = DogEntity(this._id, userId, this.name, this.age, this.breed, this.pureBreed, this.color, this.description)

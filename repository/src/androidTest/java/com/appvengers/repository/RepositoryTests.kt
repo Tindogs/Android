@@ -13,7 +13,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 @RunWith(PowerMockRunner::class)
 class RepositoryTests
 {
-    val appContext = InstrumentationRegistry.getTargetContext()
+    val appContext = InstrumentationRegistry.getTargetContext()!!
     val objectInjector = RepositoryObjectInjector(WeakReference<Context>(appContext))
 
     @Test

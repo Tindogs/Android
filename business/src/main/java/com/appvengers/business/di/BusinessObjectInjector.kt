@@ -15,6 +15,11 @@ class BusinessObjectInjector(context: Context)
     }
     fun createUserInteractor(): CreateUserInteractor
     {
-        return CreateUserInteractorFake()
+        return CreateUserInteractorImpl(repository)
+    }
+
+    fun updateUserInteractor(): UpdateUserInteractor
+    {
+        return UpdateUserInteractorImpl(repository)
     }
 }

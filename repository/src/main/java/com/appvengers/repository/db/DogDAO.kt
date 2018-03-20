@@ -4,6 +4,7 @@ import com.appvengers.repository.mappers.map
 import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.db.DaoSession
 
+//TODO("Gestion de errores")
 class DogDAO(session: DaoSession): DAOPersistable<DogEntityWrapper>
 {
     private val dogEntityDao = session.dogEntityDao
@@ -42,7 +43,7 @@ class DogDAO(session: DaoSession): DAOPersistable<DogEntityWrapper>
 
     override fun query(databaseID: String): DogEntityWrapper?
     {
-        TODO() // dogEntityDao.load(databaseID).map()
+        return dogEntityDao.load(databaseID).map()
     }
 
     override fun queryAll(): List<DogEntityWrapper>

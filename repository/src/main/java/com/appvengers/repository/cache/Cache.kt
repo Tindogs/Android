@@ -7,5 +7,5 @@ interface Cache
 {
     fun getUser(userId: String): Flowable<UserEntityWrapper>
     fun saveUser(userEntityWrapper: UserEntityWrapper): Flowable<String>
-
+    fun updateUser(userEntityWrapper: UserEntityWrapper): Flowable<Boolean>
 }

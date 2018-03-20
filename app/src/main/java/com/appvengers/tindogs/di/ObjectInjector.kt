@@ -4,9 +4,11 @@ import android.content.Context
 import com.appvengers.business.di.BusinessObjectInjector
 import com.appvengers.business.interactors.userCRUD.CreateUserInteractor
 import com.appvengers.business.interactors.userCRUD.GetUserInteractor
+import com.appvengers.business.interactors.userCRUD.UpdateUserInteractor
 
-class ObjectInjector
+object ObjectInjector
 {
+
     fun buildGetUserInteractor(context: Context): GetUserInteractor
     {
          val businessObjectInjector = BusinessObjectInjector(context)
@@ -18,4 +20,11 @@ class ObjectInjector
         val businessObjectInjector = BusinessObjectInjector(context)
         return businessObjectInjector.createUserInteractor()
     }
+
+    fun buildUpdateUserInteractor(context: Context): UpdateUserInteractor
+    {
+        val businessObjectInjector = BusinessObjectInjector(context)
+        return businessObjectInjector.updateUserInteractor()
+    }
+
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tindogs</string>
-    <string name="login_placeholder_user">Usuario</string>
+    <string name="login_placeholder_email">Correo</string>
     <string name="login_placeholder_password">Contraseña</string>
     <string name="login_button_login_text">Entrar</string>
     <string name="login_register_now">¿No tienes tu cuenta todavía? ¡Regístrate ahora!</string>
@@ -24,4 +24,11 @@
     <string name="register_validation_email_confirm">Emails are not equal</string>
     <string name="register_validation_password">Password must contain one upper case letter, one lower case letter, one number and the length must be more than 8</string>
     <string name="register_validation_password_confirm">Paswords are not equal</string>
+    <string name="sharedPerferencesFileName">com.appvenges.tindogs.network</string>
+    <string name="sharedPreferencesToken">token</string>
+    <string name="sharedPreferencesUserId">userId</string>
+    <string name="needYourLocation">We need your location for show the dogs near to you</string>
+    <string name="user_profile_user_image">User image</string>
+    <string name="user_profile_settings">Settings</string>
+    <string name="user_profile_edit_profile">Edit profile</string>
 </resources>

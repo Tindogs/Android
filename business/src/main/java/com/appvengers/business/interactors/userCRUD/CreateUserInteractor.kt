@@ -11,6 +11,6 @@ interface CreateUserInteractor
                 email: String,
                 userName: String,
                 password: String,
-                success: (user: User) -> Unit,
+                success: (user: User, token: String) -> Unit,
                 error: (message: String) -> Unit)
 }

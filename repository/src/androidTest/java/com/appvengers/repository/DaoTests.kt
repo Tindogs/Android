@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference
 @RunWith(AndroidJUnit4::class)
 class DaoTests
 {
-    val appContext = InstrumentationRegistry.getTargetContext()
+    val appContext = InstrumentationRegistry.getTargetContext()!!
     val objectInjector = RepositoryObjectInjector(WeakReference<Context>(appContext))
 
     @Test
@@ -54,7 +54,7 @@ class DaoTests
 
         assertTrue(deleteResult)
 
-        val dog = getDog(5)
+        val dog = getDog("abcd")
 
         val id = dogDao.insert(dog)
 
@@ -64,7 +64,7 @@ class DaoTests
     private fun getBasicUserEntity(): UserEntityWrapper
     {
         return UserEntityWrapper(
-                2,
+                "abc",
                 "Pepito",
                 "Perez",
                 "66666666",
@@ -72,13 +72,13 @@ class DaoTests
                 "pepito@gmail.com",
                 "user1",
                 Pair(43.6, -3.6),
-                listOf(getDog(2)))
+                listOf(getDog("abc")))
     }
 
     private fun getDog(user:UserEntityWrapper): DogEntityWrapper
     {
         return DogEntityWrapper(
-                1,
+                "abc",
                 "Perrete",
                 4.0,
                 "Cocker",
@@ -87,13 +87,13 @@ class DaoTests
                 "" ,
                 listOf("Foto1", "Foto2"),
                 QueryEntityWrapper(1.0, 2.0, 1.0, false, ""),
-                listOf(DogLikeEntityWrapper(5, "PerreteLike")), user._id)
+                listOf(DogLikeEntityWrapper("abcd", "PerreteLike")), user._id)
     }
 
-    private fun getDog(userId: Long): DogEntityWrapper
+    private fun getDog(userId: String): DogEntityWrapper
     {
         return DogEntityWrapper(
-                1,
+                "abc",
                 "Perrete",
                 4.0,
                 "Cocker",
@@ -102,6 +102,6 @@ class DaoTests
                 "" ,
                 listOf("Foto1", "Foto2"),
                 QueryEntityWrapper(1.0, 2.0, 1.0, false, ""),
-                listOf(DogLikeEntityWrapper(5, "PerreteLike")), userId)
+                listOf(DogLikeEntityWrapper("abcd", "PerreteLike")), userId)
     }
 }

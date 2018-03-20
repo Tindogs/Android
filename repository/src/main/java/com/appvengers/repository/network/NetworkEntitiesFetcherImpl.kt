@@ -1,27 +1,29 @@
 package com.appvengers.repository.network
 
 import android.util.Log
-import com.appvengers.repository.network.model.DogJsonEntity
-import com.appvengers.repository.network.model.DogLikeJsonEntity
-import com.appvengers.repository.network.model.QueryJsonEntity
-import com.appvengers.repository.network.model.UserJsonEntity
+import com.appvengers.repository.network.model.*
+import com.appvengers.utils.LogTindogs
 import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 internal class NetworkEntitiesFetcherImpl(private val networkManager: NetworkManager): NetworkEntitiesFetcher
 {
-    override fun getUser(userId: String): Flowable<UserJsonEntity>
+    override fun createUser(firstName: String, lastName: String, phone: String, mobilePhone: String, email: String, userName: String, password: String): Flowable<ResultUserJson>
     {
-        return networkManager.getUserById(userId, "letmein")
+        return networkManager.createUser(firstName, lastName, email, userName, password)
+    }
+
+    override fun getUserById(userId: String, token: String): Flowable<ResultUserJson>
+    {
+        LogTindogs("NetworkEntitiesFetcherImpl:  getUserById", Log.DEBUG)
+        return networkManager.getUserById(userId, token)
             .subscribeOn(Schedulers.io())
 
     }
 
-    override fun getUser(email: String, password: String): Flowable<UserJsonEntity>
+    override fun getUser(email: String, password: String): Flowable<ResultUserJson>
     {
-       return networkManager.getUser("Sergio80@hotmail.com", "letmein")
+       return networkManager.getUser(email, password)
                 .subscribeOn(Schedulers.io())
 
     }

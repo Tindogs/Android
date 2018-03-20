@@ -1,5 +1,9 @@
 package com.appvengers.business.models
 
+import android.os.Parcelable
+import java.io.Serializable
+
+
 data class User(
         val _id: String,
         val firstName: String,
@@ -8,6 +12,6 @@ data class User(
         val mobilePhone: String,
         val email: String,
         val userName: String,
-        val coordinates: Pair<Double, Double>?,
+        var coordinates: Pair<Double, Double>?,
         val dogs: List<Dog>
-)
+): Serializable

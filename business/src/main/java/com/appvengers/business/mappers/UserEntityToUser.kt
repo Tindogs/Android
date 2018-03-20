@@ -11,9 +11,19 @@ internal fun UserEntityWrapper.map(): User
     return User(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, this.coordinates, this.dogs.map { it.map() })
 }
 
+internal fun User.map(): UserEntityWrapper
+{
+    return UserEntityWrapper(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, this.coordinates, this.dogs.map { it.map(this._id) })
+}
+
 internal fun DogEntityWrapper.map(): Dog
 {
     return Dog(this ._id, this.name, this.age, this.breed, this.pureBreed, this.color, this.description, this.photos, this.query.map(), this.likesFromOthers.map { it.map() })
+}
+
+internal fun Dog.map(userId: String): DogEntityWrapper
+{
+    return DogEntityWrapper(this._id, this.name, this.age, this.breed, this.pureBreed, this.color, this.description, this.photos,this.query.map(), this.likesFromOthers.map { it.map() }, userId)
 }
 
 internal fun QueryEntityWrapper.map(): Query
@@ -21,7 +31,17 @@ internal fun QueryEntityWrapper.map(): Query
     return Query(this.ageFrom, this.ageTo, this.maxKms, this.reproductive, this.breed)
 }
 
+internal fun Query.map(): QueryEntityWrapper
+{
+    return QueryEntityWrapper(this.ageFrom, this.ageTo, this.maxKms, this.reproductive,this.breed)
+}
+
 internal fun DogLikeEntityWrapper.map(): DogLike
 {
     return DogLike(this.dogWhoLikes, this.name)
+}
+
+internal fun DogLike.map(): DogLikeEntityWrapper
+{
+    return DogLikeEntityWrapper(this.dogWhoLikesId, this.name)
 }

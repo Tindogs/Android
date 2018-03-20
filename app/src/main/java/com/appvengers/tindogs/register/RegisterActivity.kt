@@ -10,15 +10,18 @@ import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.R
 import com.appvengers.tindogs.di.ObjectInjector
 import com.appvengers.tindogs.router.Router
+import com.appvengers.utils.PreferencesRepository
 
 import kotlinx.android.synthetic.main.activity_register.*
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.basgeekball.awesomevalidation.utility.RegexTemplate
+import java.lang.ref.WeakReference
 
 // TODO("Coordenadas")
 class RegisterActivity : BaseActivity(), RegisterContract.View
 {
+
 
     companion object
     {
@@ -35,9 +38,9 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+        associatePresenter()
         setContentView(R.layout.activity_register)
         setUpToolbar(homeIsEnabled = true)
-        associatePresenter()
         setup()
     }
 
@@ -75,16 +78,28 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
 
     private fun associatePresenter()
     {
-        presenter = RegisterPresenter(this, ObjectInjector().buildCreateUserInteractor(this))
+        presenter = RegisterPresenter(this, ObjectInjector.buildCreateUserInteractor(this))
     }
 
-    override fun openUserProfile(user: User)
+    override fun openUserProfile()
     {
-        Router.navigateToUserProfile(this, user)
+        Router.navigateToUserProfile(this)
     }
 
     override fun setRegisterError(message: String)
     {
         setError(register_main_view, message)
     }
+
+    override fun saveTokenAndUserId(token: String, userId: String)
+    {
+        val preferences = PreferencesRepository(WeakReference(this))
+        preferences.saveTokenAndUserId(
+                getString(R.string.sharedPerferencesFileName),
+                getString(R.string.sharedPreferencesToken),
+                token,
+                getString(R.string.sharedPreferencesUserId),
+                userId)
+    }
+
 }
