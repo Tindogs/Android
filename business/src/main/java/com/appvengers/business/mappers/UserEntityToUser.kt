@@ -8,12 +8,12 @@ import com.appvengers.repository.models.*
 
 internal fun UserEntityWrapper.map(): User
 {
-    return User(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, this.coordinates, this.dogs.map { it.map() })
+    return User(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map() })
 }
 
 internal fun User.map(): UserEntityWrapper
 {
-    return UserEntityWrapper(this._id, this.firstName, this.lastName, this.phone, this.mobilePhone, this.email, this.userName, this.coordinates, this.dogs.map { it.map(this._id) })
+    return UserEntityWrapper(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map(this._id) })
 }
 
 internal fun DogEntityWrapper.map(): Dog
@@ -28,12 +28,12 @@ internal fun Dog.map(userId: String): DogEntityWrapper
 
 internal fun QueryEntityWrapper.map(): Query
 {
-    return Query(this.ageFrom, this.ageTo, this.maxKms, this.reproductive, this.breed)
+    return Query(this.age, this.maxKms, this.reproductive, this.breed)
 }
 
 internal fun Query.map(): QueryEntityWrapper
 {
-    return QueryEntityWrapper(this.ageFrom, this.ageTo, this.maxKms, this.reproductive,this.breed)
+    return QueryEntityWrapper(this.age, this.maxKms, this.reproductive,this.breed)
 }
 
 internal fun DogLikeEntityWrapper.map(): DogLike

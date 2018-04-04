@@ -67,8 +67,6 @@ class DaoTests
                 "abc",
                 "Pepito",
                 "Perez",
-                "66666666",
-                "777777777",
                 "pepito@gmail.com",
                 "user1",
                 Pair(43.6, -3.6),
@@ -86,7 +84,7 @@ class DaoTests
                 "Marron",
                 "" ,
                 listOf("Foto1", "Foto2"),
-                QueryEntityWrapper(1.0, 2.0, 1.0, false, ""),
+                QueryEntityWrapper(1.0, 2.0, false, ""),
                 listOf(DogLikeEntityWrapper("abcd", "PerreteLike")), user._id)
     }
 
@@ -101,7 +99,7 @@ class DaoTests
                 "Marron",
                 "" ,
                 listOf("Foto1", "Foto2"),
-                QueryEntityWrapper(1.0, 2.0, 1.0, false, ""),
+                QueryEntityWrapper(1.0, 2.0, false, ""),
                 listOf(DogLikeEntityWrapper("abcd", "PerreteLike")), userId)
     }
 }

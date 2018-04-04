@@ -4,6 +4,7 @@ interface DAOWritable<in T> {
 
     fun insert(element: T): String
 
+    fun insert(list: List<T>): Boolean
      /**
      * Actualiza el elemento con databaseID con los datos de elemento
      * Devuelve el número de registros afectados

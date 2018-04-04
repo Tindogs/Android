@@ -3,6 +3,7 @@ package com.appvengers.tindogs.userProfile
 import android.util.Log
 import com.appvengers.business.interactors.userCRUD.GetUserInteractor
 import com.appvengers.business.interactors.userCRUD.UpdateUserInteractor
+import com.appvengers.business.models.Dog
 import com.appvengers.business.models.User
 import com.appvengers.utils.LogTindogs
 
@@ -11,6 +12,7 @@ class UserProfilePresenter(private  val view: UserProfileContract.View,
                            private val updateUserInteractor: UpdateUserInteractor
                            ): UserProfileContract.Presenter
 {
+
     private lateinit var user: User
 
     override fun updateCoordinates(latitude: Double, longitude: Double, token: String)
@@ -24,7 +26,7 @@ class UserProfilePresenter(private  val view: UserProfileContract.View,
                 },
                 error =
                 {
-                    LogTindogs("User coordinates NOT updated. User: " + user.toString() + " - Message: " + it, Log.ERROR)
+                    LogTindogs("User coordinates NOT updated. Message: " + it + "| User: " + user.toString() , Log.ERROR)
                 })
     }
     override fun getUser(userId: String, token: String)
@@ -35,9 +37,14 @@ class UserProfilePresenter(private  val view: UserProfileContract.View,
                     this.user = user
                     view.renderUser(user.userName)
                     view.getLocation()
+                    view.setupDogList(user.dogs)
                 },
                 error = {
-                    view.setUserProfileError(it)
+                    LogTindogs(it, Log.ERROR)
+                    view.onUserNotFound()
                 })
     }
+
+
 }
+

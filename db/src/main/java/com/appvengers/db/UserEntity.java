@@ -17,8 +17,6 @@ public class UserEntity {
     private String _id;
     private String firstName;
     private String lastName;
-    private String phone;
-    private String mobilePhone;
     private String email;
     @org.greenrobot.greendao.annotation.NotNull
     private String userName;
@@ -34,15 +32,12 @@ public class UserEntity {
     @Generated(hash = 1814575071)
     private transient UserEntityDao myDao;
 
-    @Generated(hash = 2005000749)
-    public UserEntity(String _id, String firstName, String lastName, String phone,
-            String mobilePhone, String email, String userName, Double latitude,
-            Double longitude) {
+    @Generated(hash = 170498497)
+    public UserEntity(String _id, String firstName, String lastName, String email,
+            String userName, Double latitude, Double longitude) {
         this._id = _id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phone = phone;
-        this.mobilePhone = mobilePhone;
         this.email = email;
         this.userName = userName;
         this.latitude = latitude;
@@ -75,22 +70,6 @@ public class UserEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getMobilePhone() {
-        return this.mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
     }
 
     public String getEmail() {
@@ -195,4 +174,5 @@ public class UserEntity {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserEntityDao() : null;
     }
+
 }

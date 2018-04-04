@@ -12,6 +12,6 @@ interface RegisterContract
     }
     interface Presenter
     {
-        fun registerUser(firstName: String, lastName: String, phone: String, mobilePhone: String, email: String, userName: String, password: String)
+        fun registerUser(firstName: String, lastName: String, email: String, userName: String, password: String)
     }
 }

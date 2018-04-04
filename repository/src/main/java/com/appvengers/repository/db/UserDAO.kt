@@ -12,6 +12,8 @@ import com.appvengers.utils.LogTindogs
 //TODO("Gestion de errores")
 internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEntityWrapper>
 {
+
+
     private val userEntityDAO by lazy { session.userEntityDao }
     private val dogEntityDao by lazy { session.dogEntityDao }
     private val dogLikeEntityDao by lazy { session.dogLikeEntityDao }
@@ -35,6 +37,10 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         return element._id
     }
 
+    override fun insert(list: List<UserEntityWrapper>): Boolean
+    {
+        TODO("not applicable")
+    }
     override fun update(element: UserEntityWrapper): Boolean
     {
         val db = session.database
@@ -114,7 +120,7 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
         {
             userEntityWrapper.dogs.forEach { dog: DogEntityWrapper ->
 
-                dogEntityDao.insertOrReplace(dog.map(userEntityWrapper._id))
+                dogEntityDao.insertOrReplace(dog.map())
 
                 dog.likesFromOthers.forEach{
                     dogLikeEntityDao.insertOrReplace(it.map(dog._id))

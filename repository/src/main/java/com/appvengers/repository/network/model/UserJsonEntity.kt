@@ -9,8 +9,6 @@ data class UserJsonEntity(
         val firstName: String?,
         @SerializedName("last_name")
         val lastName: String?,
-        val phone: String?,
-        val mobilePhone: String?,
         val email: String?,
         @SerializedName("username")
         val userName: String,

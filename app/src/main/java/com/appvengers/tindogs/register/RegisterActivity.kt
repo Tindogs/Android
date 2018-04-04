@@ -18,7 +18,6 @@ import com.basgeekball.awesomevalidation.ValidationStyle
 import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import java.lang.ref.WeakReference
 
-// TODO("Coordenadas")
 class RegisterActivity : BaseActivity(), RegisterContract.View
 {
 
@@ -54,8 +53,6 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
                 presenter.registerUser(
                         register_first_name.text.toString(),
                         register_last_name.text.toString(),
-                        register_phone.text.toString(),
-                        register_mobile_phone.text.toString(),
                         register_email.text.toString(),
                         register_user_name.text.toString(),
                         register_password.text.toString()
@@ -71,8 +68,8 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
         validator.addValidation(register_last_name, RegexTemplate.NOT_EMPTY, getString(R.string.register_validation_last_name))
         validator.addValidation(register_email, Patterns.EMAIL_ADDRESS, getString(R.string.register_validation_email))
         validator.addValidation(register_email, register_email_confirm, getString(R.string.register_validation_email_confirm))
-        val paswordRegex = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])([^\\s]){8,16}\$"
-        validator.addValidation(register_password, paswordRegex, getString(R.string.register_validation_password))
+        val passwordRegex = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])([^\\s]){8,16}\$"
+        validator.addValidation(register_password, passwordRegex, getString(R.string.register_validation_password))
         validator.addValidation(register_password, register_password_confirm, getString(R.string.register_validation_password_confirm))
     }
 

@@ -32,7 +32,7 @@ class RepositoryObjectInjector(private val weakContext: WeakReference<Context>)
     internal fun buildCache(): Cache
     {
 
-        return CacheImpl(buildUserDaoPersistable())
+        return CacheImpl(buildUserDaoPersistable(), buildDogDaoPersistable())
     }
 
     internal fun buildNetworkEntitiesFetcher(): NetworkEntitiesFetcher

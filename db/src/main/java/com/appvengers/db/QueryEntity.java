@@ -9,17 +9,16 @@ public class QueryEntity {
 
     @Id
     private String dogId;
-    private Double ageFrom;
-    private Double ageTo;
+    private Double age;
+
     private Double maxKms;
     private Boolean reproductive;
     private String breed;
-    @Generated(hash = 682104673)
-    public QueryEntity(String dogId, Double ageFrom, Double ageTo, Double maxKms,
+    @Generated(hash = 964367373)
+    public QueryEntity(String dogId, Double age, Double maxKms,
             Boolean reproductive, String breed) {
         this.dogId = dogId;
-        this.ageFrom = ageFrom;
-        this.ageTo = ageTo;
+        this.age = age;
         this.maxKms = maxKms;
         this.reproductive = reproductive;
         this.breed = breed;
@@ -33,17 +32,11 @@ public class QueryEntity {
     public void setDogId(String dogId) {
         this.dogId = dogId;
     }
-    public Double getAgeFrom() {
-        return this.ageFrom;
+    public Double getAge() {
+        return this.age;
     }
-    public void setAgeFrom(Double ageFrom) {
-        this.ageFrom = ageFrom;
-    }
-    public Double getAgeTo() {
-        return this.ageTo;
-    }
-    public void setAgeTo(Double ageTo) {
-        this.ageTo = ageTo;
+    public void setAge(Double age) {
+        this.age = age;
     }
     public Double getMaxKms() {
         return this.maxKms;

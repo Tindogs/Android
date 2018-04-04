@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.appvengers.utils.PreferencesRepository
+import com.appvengers.utils.KeyUserInfo
 import java.lang.ref.WeakReference
 
 open class BaseActivity: AppCompatActivity()
@@ -36,9 +37,15 @@ open class BaseActivity: AppCompatActivity()
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
     }
 
-    fun getTokenAndUserId(): Pair<String, String>?
+    fun getTokenAndUserId(): KeyUserInfo?
     {
         val preferences = PreferencesRepository(WeakReference(this))
         return preferences.getTokenAndUserId(getString(R.string.sharedPerferencesFileName), getString(R.string.sharedPreferencesToken), getString(R.string.sharedPreferencesUserId))
     }
+    fun deleteUserInfo()
+    {
+        val preferences = PreferencesRepository(WeakReference(this))
+        preferences.deleteUserInfo(getString(R.string.sharedPerferencesFileName), getString(R.string.sharedPreferencesToken), getString(R.string.sharedPreferencesUserId))
+    }
+
 }

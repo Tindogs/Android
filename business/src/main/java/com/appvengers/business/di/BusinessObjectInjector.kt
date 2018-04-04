@@ -1,6 +1,8 @@
 package com.appvengers.business.di
 
 import android.content.Context
+import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
+import com.appvengers.business.interactors.dogCRUD.CreateDogInteractorImpl
 import com.appvengers.business.interactors.userCRUD.*
 import com.appvengers.repository.di.RepositoryObjectInjector
 import java.lang.ref.WeakReference
@@ -21,5 +23,10 @@ class BusinessObjectInjector(context: Context)
     fun updateUserInteractor(): UpdateUserInteractor
     {
         return UpdateUserInteractorImpl(repository)
+    }
+
+    fun createDogInteractor(): CreateDogInteractor
+    {
+        return CreateDogInteractorImpl(repository)
     }
 }

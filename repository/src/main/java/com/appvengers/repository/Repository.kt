@@ -1,5 +1,6 @@
 package com.appvengers.repository
 
+import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 
 interface Repository
@@ -9,8 +10,6 @@ interface Repository
     fun createUser(
             firstName: String,
             lastName: String,
-            phone: String,
-            mobilePhone: String,
             email: String,
             userName: String,
             password: String,
@@ -18,4 +17,15 @@ interface Repository
             error: (message: String) -> Unit
     )
     fun updateUser(user: UserEntityWrapper, token: String, success: (user: UserEntityWrapper) -> Unit, error: (message: String) -> Unit)
+    fun createDog(userId: String,
+                  token: String,
+                  name: String,
+                  age: Double,
+                  breed: String,
+                  pureBreed: Boolean,
+                  color: String,
+                  description: String,
+                  photos: List<String>,
+                  success: (dogs: List<DogEntityWrapper>) -> Unit,
+                  error: (message: String) -> Unit)
 }

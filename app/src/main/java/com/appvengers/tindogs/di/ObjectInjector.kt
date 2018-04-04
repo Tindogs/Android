@@ -2,6 +2,7 @@ package com.appvengers.tindogs.di
 
 import android.content.Context
 import com.appvengers.business.di.BusinessObjectInjector
+import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
 import com.appvengers.business.interactors.userCRUD.CreateUserInteractor
 import com.appvengers.business.interactors.userCRUD.GetUserInteractor
 import com.appvengers.business.interactors.userCRUD.UpdateUserInteractor
@@ -27,4 +28,9 @@ object ObjectInjector
         return businessObjectInjector.updateUserInteractor()
     }
 
+    fun buildCreateDogInteractor(context: Context): CreateDogInteractor
+    {
+        val businessObjectInjector = BusinessObjectInjector(context)
+        return businessObjectInjector.createDogInteractor()
+    }
 }

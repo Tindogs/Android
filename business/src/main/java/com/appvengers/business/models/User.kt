@@ -8,9 +8,7 @@ data class User(
         val _id: String,
         val firstName: String,
         val lastName:String,
-        val phone: String,
-        val mobilePhone: String,
-        val email: String,
+          val email: String,
         val userName: String,
         var coordinates: Pair<Double, Double>?,
         val dogs: List<Dog>

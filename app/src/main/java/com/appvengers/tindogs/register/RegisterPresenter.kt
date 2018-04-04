@@ -6,9 +6,9 @@ import com.appvengers.business.models.User
 
 class RegisterPresenter(private val view: RegisterContract.View, private val createUserInteractor: CreateUserInteractor): RegisterContract.Presenter
 {
-    override fun registerUser(firstName: String, lastName: String, phone: String, mobilePhone: String, email: String, userName: String, password: String)
+    override fun registerUser(firstName: String, lastName: String, email: String, userName: String, password: String)
     {
-        createUserInteractor.execute(firstName, lastName, phone, mobilePhone, email, userName, password,
+        createUserInteractor.execute(firstName, lastName, email, userName, password,
                 success = {user: User, token: String ->
                     view.saveTokenAndUserId(token, user._id)
                     view.openUserProfile()

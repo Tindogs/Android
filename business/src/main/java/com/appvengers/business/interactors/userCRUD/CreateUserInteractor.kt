@@ -6,9 +6,7 @@ interface CreateUserInteractor
 {
     fun execute(firstName: String,
                 lastName: String,
-                phone: String,
-                mobilePhone: String,
-                email: String,
+                  email: String,
                 userName: String,
                 password: String,
                 success: (user: User, token: String) -> Unit,

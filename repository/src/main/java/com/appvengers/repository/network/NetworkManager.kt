@@ -22,4 +22,26 @@ internal interface NetworkManager
                    @Field("email") email: String,
                    @Field("username") userName: String,
                    @Field("password") password: String) : Flowable<ResultUserJson>
+
+    @FormUrlEncoded
+    @PUT("users/{user_id}")
+    fun updateUser(@Path("user_id") userId: String,
+                   @Header("token") token: String,
+                   @Field("first_name") firstName: String,
+                   @Field("last_name") lastName: String,
+                   @Field("email") email: String,
+                   @Field("username") userName: String,
+                    @Field("coordinates") coordinates: List<Double>?) : Flowable<ResultUserJson>
+
+    @FormUrlEncoded
+    @PUT("dogs/withuser/{user_id}")
+    fun createDog(@Path("user_id") userId: String,
+                  @Header("token") token: String,
+                  @Field("name") name: String,
+                  @Field("age") age: Double,
+                  @Field("breed") breed: String,
+                  @Field("purebreed") pureBreed: Boolean,
+                  @Field("color") color: String,
+                  @Field("description") description: String,
+                  @Field("photos") photos: List<String>): Flowable<ResultUserJson>
 }

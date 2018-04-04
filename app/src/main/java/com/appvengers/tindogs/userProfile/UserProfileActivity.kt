@@ -12,14 +12,18 @@ import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import com.appvengers.tindogs.R
 import android.widget.Toast
+import com.appvengers.business.models.Dog
 
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.di.ObjectInjector
 import com.appvengers.tindogs.router.Router
 import com.appvengers.utils.LogTindogs
+import com.appvengers.utils.PreferencesRepository
 import com.google.android.gms.common.api.ApiException
 
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -31,6 +35,8 @@ import com.google.android.gms.tasks.RuntimeExecutionException
 
 class UserProfileActivity : BaseActivity(), UserProfileContract.View
 {
+
+
     companion object
     {
         const val REQUEST_CHECK_SETTINGS = 232
@@ -52,28 +58,57 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        token = getTokenAndUserId()!!.first
+
+
         associatePresenter()
         setup()
     }
 
     private fun setup()
     {
-        val result = getTokenAndUserId()
-        if (result == null)
+        val userInfo = getTokenAndUserId()
+        if (userInfo == null)
         {
             Router.navigateToRegisterForm(this)
         }
         else
         {
-            presenter.getUser(result.second, result.first)
+            token = userInfo.token
+            presenter.getUser(userInfo.userId, userInfo.token)
+            user_profile_add_dog_button.setOnClickListener {
+                Router.navigateToDogRegister(this)
+            }
+
         }
+
+
     }
 
+    override fun setupDogList(dogs: List<Dog>)
+    {
+        user_profile_dogs_list.layoutManager = GridLayoutManager(this, 2)
+        user_profile_dogs_list.itemAnimator = DefaultItemAnimator()
+        val adapter =  UserDogsAdapter(dogs)
+        adapter.listener = object : UserDogsAdapter.OnDogClickListener
+        {
+            override fun onDogSelected(dog: Dog)
+            {
+                LogTindogs("Dog selected $dog", Log.INFO)
+            }
+
+        }
+        user_profile_dogs_list.adapter = adapter
+    }
 
     private fun associatePresenter()
     {
         presenter = UserProfilePresenter(this, ObjectInjector.buildGetUserInteractor(this), ObjectInjector.buildUpdateUserInteractor(this))
+    }
+
+    override fun onUserNotFound()
+    {
+        deleteUserInfo()
+        Router.navigateToLogin(this)
     }
 
     override fun getLocation()

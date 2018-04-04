@@ -1,6 +1,7 @@
 package com.appvengers.tindogs.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.appvengers.business.models.User
@@ -20,6 +21,14 @@ import java.lang.ref.WeakReference
 class MainActivity : BaseActivity(), LoginContract.View
 {
 
+    companion object
+    {
+        fun intent(context: Context): Intent
+        {
+            val intent = Intent(context, MainActivity::class.java)
+            return intent
+        }
+    }
 
     private lateinit var presenter: LoginContract.Presenter
     private lateinit var validator: AwesomeValidation
@@ -38,11 +47,11 @@ class MainActivity : BaseActivity(), LoginContract.View
     private fun checkToken()
     {
         LogTindogs("Check token", Log.DEBUG)
-        val result = getTokenAndUserId()
-        if (result != null)
+        val userInfo = getTokenAndUserId()
+        if (userInfo != null)
         {
-            LogTindogs("Token Got: " + result.second, Log.DEBUG)
-            presenter.getUserById(result.second, result.first)
+            LogTindogs("Token Got: " + userInfo.userId, Log.DEBUG)
+            presenter.getUserById(userInfo.userId, userInfo.token)
         }
     }
     private fun setup()

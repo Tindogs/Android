@@ -6,23 +6,31 @@ import com.appvengers.repository.models.*
 import com.appvengers.utils.LogTindogs
 import io.reactivex.Flowable
 import io.reactivex.BackpressureStrategy
-import io.reactivex.FlowableOnSubscribe
 
 
-internal class CacheImpl(private val daoPersistable: DAOPersistable<UserEntityWrapper>): Cache
+internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEntityWrapper>, private val daoDogPersistable: DAOPersistable<DogEntityWrapper>): Cache
 {
+    override fun saveDog(allDogsEntityWrapper: List<DogEntityWrapper>): Flowable<Boolean>
+    {
+        return Flowable.fromCallable {
+            daoDogPersistable.deleteAll()
+            daoDogPersistable.insert(allDogsEntityWrapper)
+        }
+    }
+
+
+
     override fun updateUser(userEntityWrapper: UserEntityWrapper): Flowable<Boolean>
     {
         return Flowable.fromCallable {
-            daoPersistable.deleteAll()
-            daoPersistable.update(userEntityWrapper)
+           daoUserPersistable.update(userEntityWrapper)
         }
     }
 
     override fun getUser(userId: String): Flowable<UserEntityWrapper>
     {
         return Flowable.create<UserEntityWrapper>({
-            val user = daoPersistable.query(userId)
+            val user = daoUserPersistable.query(userId)
             if (user != null)
             {
                 LogTindogs("User obtenido de cache: " + user.toString(), Log.DEBUG)
@@ -36,8 +44,8 @@ internal class CacheImpl(private val daoPersistable: DAOPersistable<UserEntityWr
     override fun saveUser(userEntityWrapper: UserEntityWrapper): Flowable<String>
     {
         return Flowable.fromCallable {
-            daoPersistable.deleteAll()
-            daoPersistable.insert(userEntityWrapper)
+            daoUserPersistable.deleteAll()
+            daoUserPersistable.insert(userEntityWrapper)
         }
     }
 
