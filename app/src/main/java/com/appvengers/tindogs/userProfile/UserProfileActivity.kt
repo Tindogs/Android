@@ -31,6 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.RuntimeExecutionException
+import com.squareup.picasso.Picasso
 
 
 class UserProfileActivity : BaseActivity(), UserProfileContract.View
@@ -248,9 +249,12 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
         }
     }
 
-    override fun renderUser(userName: String)
+    override fun renderUser(userName: String, photo: String)
     {
         user_profile_name.text = userName
+        Picasso.with(this)
+                .load(photo)
+                .into(user_profile_image)
     }
 
     override fun setUserProfileError(message: String)

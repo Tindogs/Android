@@ -9,6 +9,7 @@ interface CreateUserInteractor
                   email: String,
                 userName: String,
                 password: String,
+                photo: String,
                 success: (user: User, token: String) -> Unit,
                 error: (message: String) -> Unit)
 }

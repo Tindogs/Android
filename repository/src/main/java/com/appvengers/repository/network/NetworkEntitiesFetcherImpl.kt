@@ -19,9 +19,9 @@ internal class NetworkEntitiesFetcherImpl(private val networkManager: NetworkMan
        return networkManager.updateUser(userId, token, firstName, lastName,email, userName, coordinates)
     }
 
-    override fun createUser(firstName: String, lastName: String,  email: String, userName: String, password: String): Flowable<ResultUserJson>
+    override fun createUser(firstName: String, lastName: String,  email: String, userName: String, password: String, photo: String): Flowable<ResultUserJson>
     {
-        return networkManager.createUser(firstName, lastName, email, userName, password)
+        return networkManager.createUser(firstName, lastName, email, userName, password, photo)
     }
 
     override fun getUserById(userId: String, token: String): Flowable<ResultUserJson>

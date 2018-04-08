@@ -22,6 +22,7 @@ public class UserEntity {
     private String userName;
     private Double latitude;
     private Double longitude;
+    private String photo;
 
     @ToMany(referencedJoinProperty = "userId")
     private List<DogEntity> dogs;
@@ -32,9 +33,9 @@ public class UserEntity {
     @Generated(hash = 1814575071)
     private transient UserEntityDao myDao;
 
-    @Generated(hash = 170498497)
-    public UserEntity(String _id, String firstName, String lastName, String email,
-            String userName, Double latitude, Double longitude) {
+    @Generated(hash = 167603988)
+    public UserEntity(String _id, String firstName, String lastName, String email, String userName,
+            Double latitude, Double longitude, String photo) {
         this._id = _id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +43,7 @@ public class UserEntity {
         this.userName = userName;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.photo = photo;
     }
 
     @Generated(hash = 1433178141)
@@ -173,6 +175,14 @@ public class UserEntity {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserEntityDao() : null;
+    }
+
+    public String getPhoto() {
+        return this.photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
 }

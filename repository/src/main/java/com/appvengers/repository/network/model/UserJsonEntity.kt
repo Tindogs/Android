@@ -13,5 +13,6 @@ data class UserJsonEntity(
         @SerializedName("username")
         val userName: String,
         val coordinates: List<Double>?,
-        val dogs: List<DogJsonEntity>?)
+        val dogs: List<DogJsonEntity>?,
+        val photo: String)
 

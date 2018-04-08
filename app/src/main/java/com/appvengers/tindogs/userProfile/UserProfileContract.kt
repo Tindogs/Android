@@ -6,7 +6,7 @@ interface UserProfileContract
 {
     interface View
     {
-        fun renderUser(userName: String)
+        fun renderUser(userName: String,photo: String)
         fun setUserProfileError(message: String)
         fun getLocation()
         fun onUserNotFound()

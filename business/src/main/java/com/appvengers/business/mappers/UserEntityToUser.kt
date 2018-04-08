@@ -8,12 +8,12 @@ import com.appvengers.repository.models.*
 
 internal fun UserEntityWrapper.map(): User
 {
-    return User(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map() })
+    return User(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map() }, this.photo)
 }
 
 internal fun User.map(): UserEntityWrapper
 {
-    return UserEntityWrapper(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map(this._id) })
+    return UserEntityWrapper(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates, this.dogs.map { it.map(this._id) }, this.photo)
 }
 
 internal fun DogEntityWrapper.map(): Dog

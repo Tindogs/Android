@@ -99,11 +99,12 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
              email: String,
             userName: String,
             password: String,
+            photo: String,
             success: (user: UserEntityWrapper, token: String) -> Unit,
             error: (message: String) -> Unit
     )
     {
-        networkEntitiesFetcher.createUser(firstName, lastName, email, userName, password)
+        networkEntitiesFetcher.createUser(firstName, lastName, email, userName, password,photo)
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
                     cache.saveUser(it.map()).subscribe({}, {

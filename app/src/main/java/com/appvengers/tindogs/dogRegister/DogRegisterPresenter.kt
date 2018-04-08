@@ -1,6 +1,9 @@
 package com.appvengers.tindogs.dogRegister
 
+import android.net.Uri
 import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
+import com.appvengers.tindogs.uploads.Uploads
+import com.appvengers.tindogs.uploads.UploadsFirebaseImpl
 
 
 class DogRegisterPresenter(private val view: DogRegisterContract.View,
@@ -15,6 +18,15 @@ class DogRegisterPresenter(private val view: DogRegisterContract.View,
                error = {
                    view.setRegisterDogError(it)
                })
+    }
+
+    override fun uploadDogPhoto(photo: Uri, success: (uri: Uri) -> Unit, error: (msg: String) -> Unit) {
+        val uploads : Uploads = UploadsFirebaseImpl()
+        uploads.uploadPhoto(uri = photo, success = {
+            success(it)
+        }, error = {
+            error(it)
+        })
     }
 
 }

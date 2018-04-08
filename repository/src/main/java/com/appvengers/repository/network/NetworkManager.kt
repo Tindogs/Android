@@ -21,7 +21,8 @@ internal interface NetworkManager
                    @Field("last_name") lastName: String,
                    @Field("email") email: String,
                    @Field("username") userName: String,
-                   @Field("password") password: String) : Flowable<ResultUserJson>
+                   @Field("password") password: String,
+                   @Field("photo") photo: String) : Flowable<ResultUserJson>
 
     @FormUrlEncoded
     @PUT("users/{user_id}")

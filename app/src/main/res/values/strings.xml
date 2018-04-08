@@ -47,4 +47,5 @@
     <string name="dog_register_validation_age">Dog age must be between 0 and 30</string>
     <string name="dog_register_validation_desription_empty">Dog description cannot be empty</string>
     <string name="cell_list_dog_user_profile_dog_description">Dog description</string>
+    <string name="user_image">User Image</string>
 </resources>

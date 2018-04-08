@@ -6,4 +6,5 @@ data class UserEntityWrapper(val _id: String,
                              val email: String,
                              val userName: String,
                              val coordinates: Pair<Double, Double>?,
-                             val dogs: List<DogEntityWrapper>)
+                             val dogs: List<DogEntityWrapper>,
+                             val photo: String)

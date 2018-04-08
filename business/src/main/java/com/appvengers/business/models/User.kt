@@ -11,5 +11,6 @@ data class User(
           val email: String,
         val userName: String,
         var coordinates: Pair<Double, Double>?,
-        val dogs: List<Dog>
+        val dogs: List<Dog>,
+        val photo: String
 ): Serializable

@@ -1,11 +1,12 @@
 package com.appvengers.tindogs.register
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 
 import android.os.Bundle
 import android.util.Patterns
-import com.appvengers.business.models.User
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.R
 import com.appvengers.tindogs.di.ObjectInjector
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.basgeekball.awesomevalidation.utility.RegexTemplate
+import com.squareup.picasso.Picasso
 import java.lang.ref.WeakReference
 
 class RegisterActivity : BaseActivity(), RegisterContract.View
@@ -33,6 +35,11 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
 
     private lateinit var presenter: RegisterContract.Presenter
     private lateinit var validator: AwesomeValidation
+
+    /* User photo */
+    private var photoUrl: String = ""
+    private val REQUEST_CODE_USER_PHOTO = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -55,9 +62,16 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
                         register_last_name.text.toString(),
                         register_email.text.toString(),
                         register_user_name.text.toString(),
-                        register_password.text.toString()
+                        register_password.text.toString(),
+                        this.photoUrl
                 )
             }
+        }
+        register_user_photo.setOnClickListener {
+
+            var intentPicker = Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intentPicker,REQUEST_CODE_USER_PHOTO)
+
         }
     }
 
@@ -75,7 +89,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
 
     private fun associatePresenter()
     {
-        presenter = RegisterPresenter(this, ObjectInjector.buildCreateUserInteractor(this))
+        presenter = RegisterPresenter(this, ObjectInjector.buildCreateUserInteractor(this),ObjectInjector.buildUploadUserPhoto(this))
     }
 
     override fun openUserProfile()
@@ -99,4 +113,20 @@ class RegisterActivity : BaseActivity(), RegisterContract.View
                 userId)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if(requestCode == REQUEST_CODE_USER_PHOTO
+            && resultCode == Activity.RESULT_OK
+            && data?.data != null) {
+
+            var resp : Uri? = data.data
+            presenter.uploadUserPhoto(resp!!, success = {
+                this.photoUrl = it.toString()
+                Picasso.with(this.baseContext).load(it.toString()).into(register_user_photo)
+            }, error = {
+                this.setRegisterError(it)
+            })
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }

@@ -1,5 +1,7 @@
 package com.appvengers.tindogs.dogRegister
 
+import android.net.Uri
+
 
 interface DogRegisterContract
 {
@@ -21,5 +23,7 @@ interface DogRegisterContract
                 description: String,
                 photos: List<String>
         )
+
+        fun uploadDogPhoto(photo: Uri,success: (uri: Uri) -> Unit, error: (msg: String) -> Unit)
     }
 }

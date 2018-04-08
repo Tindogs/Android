@@ -13,6 +13,7 @@ interface Repository
             email: String,
             userName: String,
             password: String,
+            photo: String,
             success: (user: UserEntityWrapper, token: String) -> Unit,
             error: (message: String) -> Unit
     )

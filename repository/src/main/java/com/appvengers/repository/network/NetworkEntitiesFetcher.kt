@@ -7,7 +7,7 @@ interface NetworkEntitiesFetcher
 {
     fun getUser(email: String, password: String): Flowable<ResultUserJson>
     fun getUserById(userId: String, token: String): Flowable<ResultUserJson>
-    fun createUser(firstName: String, lastName: String, email: String, userName: String, password: String): Flowable<ResultUserJson>
+    fun createUser(firstName: String, lastName: String, email: String, userName: String, password: String, photo: String): Flowable<ResultUserJson>
     fun updateUser(firstName: String, lastName: String,email: String, userName: String, coordinates: List<Double>?,
                    userId: String, token: String): Flowable<ResultUserJson>
     fun createDog(  userId: String,

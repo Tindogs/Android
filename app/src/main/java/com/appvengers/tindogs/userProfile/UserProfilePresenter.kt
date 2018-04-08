@@ -35,7 +35,7 @@ class UserProfilePresenter(private  val view: UserProfileContract.View,
                 success = { user: User ->
                     LogTindogs("User got (userId): ", Log.DEBUG)
                     this.user = user
-                    view.renderUser(user.userName)
+                    view.renderUser(user.userName, user.photo)
                     view.getLocation()
                     view.setupDogList(user.dogs)
                 },

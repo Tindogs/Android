@@ -9,14 +9,14 @@ import com.appvengers.repository.network.model.*
 
 fun UserEntityWrapper.map(): com.appvengers.db.UserEntity
 {
-    return com.appvengers.db.UserEntity(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates?.first, this.coordinates?.second)
+    return com.appvengers.db.UserEntity(this._id, this.firstName, this.lastName, this.email, this.userName, this.coordinates?.first, this.coordinates?.second,this.photo)
 }
 
 fun com.appvengers.db.UserEntity?.map(): UserEntityWrapper?
 {
     if (this != null)
     {
-        return UserEntityWrapper(this._id, this.firstName, this.lastName, this.email, this.userName, Pair(this.latitude, this.longitude),this.dogs.map { it.map() })
+        return UserEntityWrapper(this._id, this.firstName, this.lastName, this.email, this.userName, Pair(this.latitude, this.longitude),this.dogs.map { it.map() }, this.photo)
     }
     else
     {
@@ -30,6 +30,7 @@ fun UserJsonEntity.map(): UserEntityWrapper
     val lastName = this.lastName ?: ""
     val email = this.email ?: ""
     val dogs = this.dogs ?: listOf()
+    val photo = this.photo
     val coordinates = if (this.coordinates != null && this.coordinates.count() > 0)
     {
         Pair(this.coordinates[0], this.coordinates[1])
@@ -38,7 +39,7 @@ fun UserJsonEntity.map(): UserEntityWrapper
     {
         null
     }
-    return UserEntityWrapper(this._id, firstName, lastName, email, this.userName, coordinates, dogs.map { it.map(this._id) })
+    return UserEntityWrapper(this._id, firstName, lastName, email, this.userName, coordinates, dogs.map { it.map(this._id) },photo)
 }
 
 fun UserJsonEntity.mapDogs(): List<DogEntityWrapper>
