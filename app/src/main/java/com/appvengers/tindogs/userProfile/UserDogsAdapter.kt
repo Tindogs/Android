@@ -34,11 +34,20 @@ class UserDogsAdapter(private val dogs: List<Dog>): RecyclerView.Adapter<UserDog
         fun bindDog(dog: Dog)
         {
             itemView.cell_list_dog_user_profile_name.text = dog.name
-            Picasso.with(itemView.context)
-                    .load(dog.photos.firstOrNull())
-                    .placeholder(R.drawable.dog_placeholder)
-                    .into(itemView.cell_list_dog_user_profile_image)
+            if(dog.photos[0] != "") {
+                Picasso.with(itemView.context)
+                        .load(dog.photos.firstOrNull())
+                        .placeholder(R.drawable.dog_placeholder)
+                        .into(itemView.cell_list_dog_user_profile_image)
+
+            } else {
+                Picasso.with(itemView.context)
+                        .load(R.drawable.dog_placeholder)
+                        .into(itemView.cell_list_dog_user_profile_image)
+            }
+
             itemView.setOnClickListener { listener?.onDogSelected(dog) }
+
         }
     }
 

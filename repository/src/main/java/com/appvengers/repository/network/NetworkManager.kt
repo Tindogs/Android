@@ -35,7 +35,7 @@ internal interface NetworkManager
                     @Field("coordinates") coordinates: List<Double>?) : Flowable<ResultUserJson>
 
     @FormUrlEncoded
-    @PUT("dogs/withuser/{user_id}")
+    @PUT("users/{user_id}/dogs")
     fun createDog(@Path("user_id") userId: String,
                   @Header("token") token: String,
                   @Field("name") name: String,

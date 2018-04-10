@@ -1,6 +1,8 @@
 package com.appvengers.business.di
 
 import android.content.Context
+import com.appvengers.business.interactors.GetDogsListInteractor
+import com.appvengers.business.interactors.GetDogsListInteractorFakeImpl
 import com.appvengers.business.interactors.UploadUserPhotoInteractor
 import com.appvengers.business.interactors.UploadUserPhotoInteractorImpl
 import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
@@ -34,5 +36,9 @@ class BusinessObjectInjector(context: Context)
 
     fun uploadUserPhotoInteractor(): UploadUserPhotoInteractor {
         return UploadUserPhotoInteractorImpl()
+    }
+
+    fun getDogListMatchInteractor(): GetDogsListInteractor {
+        return GetDogsListInteractorFakeImpl()
     }
 }

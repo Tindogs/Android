@@ -89,12 +89,14 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
     {
         user_profile_dogs_list.layoutManager = GridLayoutManager(this, 2)
         user_profile_dogs_list.itemAnimator = DefaultItemAnimator()
+        val activity = this
         val adapter =  UserDogsAdapter(dogs)
         adapter.listener = object : UserDogsAdapter.OnDogClickListener
         {
             override fun onDogSelected(dog: Dog)
             {
                 LogTindogs("Dog selected $dog", Log.INFO)
+                Router.navigateToDogMatch(activity, dog)
             }
 
         }

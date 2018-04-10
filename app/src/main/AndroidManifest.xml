@@ -30,7 +30,8 @@
             android:name=".register.RegisterActivity"
             android:parentActivityName=".login.MainActivity" />
         <activity android:name=".userProfile.UserProfileActivity" />
-        <activity android:name=".dogRegister.DogRegisterActivity"></activity>
+        <activity android:name=".dogRegister.DogRegisterActivity" />
+        <activity android:name=".match.MatchActivity"></activity>
     </application>
 
 </manifest>
