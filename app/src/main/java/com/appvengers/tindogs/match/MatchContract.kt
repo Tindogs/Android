@@ -13,6 +13,8 @@ interface MatchContract {
 
     interface Presenter {
         fun getDogsList()
+        fun newDogLike(dog: Dog)
+        fun newDogDislike(dog: Dog)
 
     }
 

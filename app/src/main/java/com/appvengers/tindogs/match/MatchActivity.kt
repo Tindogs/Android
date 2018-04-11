@@ -39,8 +39,8 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
         associatePresenter()
         setup()
-        presenter.getDogsList()
         reload()
+
     }
 
     private fun associatePresenter()
@@ -50,23 +50,17 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
     private fun reload() {
         cardStackView?.visibility = View.GONE
-        Handler().postDelayed({
-            adapter = createDogMatchCardAdapter()
-            cardStackView?.setAdapter(adapter)
-            cardStackView?.visibility = View.VISIBLE
-        }, 1000)
+        cardStackView?.setAdapter(adapter)
+        cardStackView?.visibility = View.VISIBLE
+        presenter.getDogsList()
     }
 
-    private fun createDogMatchCardAdapter(): DogMatchCardAdapter {
-        val adapter = DogMatchCardAdapter(this)
-        //adapter.addAll(createDogsList())
-        return adapter
-    }
+
 
 
 
     private fun setup() {
-
+        adapter = DogMatchCardAdapter(this)
         cardStackView = findViewById(R.id.activity_match_card_stack_view) as CardStackView
 
         cardStackView?.setCardEventListener(object : CardStackView.CardEventListener {
@@ -75,12 +69,20 @@ class MatchActivity : BaseActivity(), MatchContract.View {
             }
 
             override fun onCardSwiped(direction: SwipeDirection) {
-                Log.d("CardStackView", "onCardSwiped: " + direction.toString())
-                Log.d("CardStackView", "topIndex: " + cardStackView?.getTopIndex())
+
                 if (cardStackView?.getTopIndex() === adapter?.count?.minus(1)) {
                     Log.d("CardStackView", "Paginate: " + cardStackView?.getTopIndex())
                     presenter.getDogsList()
                 }
+                Log.d("CardStackView", "onCardSwiped: " + direction.toString())
+                if (direction.toString() == "right") {
+                    //hacemos like al perrete que estamos viendo
+                    presenter.newDogLike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                } else {
+                    //hacemos dislike al perrete que estamos viendo
+                    presenter.newDogDislike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                }
+
             }
 
             override fun onCardReversed() {
@@ -95,10 +97,10 @@ class MatchActivity : BaseActivity(), MatchContract.View {
                 Log.d("CardStackView", "onCardClicked: " + index)
             }
         })
+
     }
 
     private fun paginate(dogs: MutableList<Dog>) {
-        Log.d("MatchActivity","Paginate")
         cardStackView?.setPaginationReserved()
         adapter?.addAll(dogs)
         adapter?.notifyDataSetChanged()
