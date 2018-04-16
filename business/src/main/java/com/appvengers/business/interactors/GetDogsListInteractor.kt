@@ -7,5 +7,5 @@ import com.appvengers.business.models.Dog
  */
 interface GetDogsListInteractor {
 
-    fun execute(dogId: String, success: (dogs: MutableList<Dog>) -> Unit, error: (msg: String) -> Unit )
+    fun execute(userId: String, dogId: String, token: String, success: (dogs: MutableList<Dog>) -> Unit, error: (msg: String) -> Unit )
 }

@@ -88,8 +88,7 @@ class MainActivity : BaseActivity(), LoginContract.View
         Router.navigateToUserProfile(this)
     }
 
-    override fun setLoginError(message: String)
-    {
+    override fun setLoginError(message: String) {
         setError(login_main_view, message)
     }
 

@@ -94,7 +94,7 @@ fun DogLikeEntityWrapper.map(dogId: String): com.appvengers.db.DogLikeEntity
 
 fun DogLikeJsonEntity.map(): DogLikeEntityWrapper
 {
-    return DogLikeEntityWrapper(this.dogWhoLikes, this.name)
+    return DogLikeEntityWrapper(this.dogWhoLikes, this.dogName)
 }
 
 fun DogLikeEntity.map(): DogLikeEntityWrapper

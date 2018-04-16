@@ -9,4 +9,5 @@ interface Cache
     fun saveUser(userEntityWrapper: UserEntityWrapper): Flowable<String>
     fun updateUser(userEntityWrapper: UserEntityWrapper): Flowable<Boolean>
     fun saveDog(allDogsEntityWrapper: List<DogEntityWrapper>): Flowable<Boolean>
+    fun findLikeFromOther(dogLikedId: String, ownerDogId: String): Flowable<Boolean>
 }

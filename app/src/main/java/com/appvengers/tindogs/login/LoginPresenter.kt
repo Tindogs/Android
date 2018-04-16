@@ -33,6 +33,7 @@ class LoginPresenter(private val view: LoginContract.View, private val getUserIn
                     view.openUserProfile()
                 },
                 error = {message ->
+                    Log.d("ERROR_LOGIN", message)
                     view.setLoginError(message)
                 })
     }

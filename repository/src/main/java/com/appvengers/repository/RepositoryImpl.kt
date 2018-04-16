@@ -5,6 +5,7 @@ import com.appvengers.repository.cache.Cache
 import com.appvengers.repository.mappers.map
 import com.appvengers.repository.mappers.mapDogs
 import com.appvengers.repository.models.DogEntityWrapper
+import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 import com.appvengers.repository.network.NetworkEntitiesFetcher
 import com.appvengers.repository.network.model.ResultUserJson
@@ -15,21 +16,23 @@ import retrofit2.HttpException
 
 internal class RepositoryImpl(private val cache: Cache, private val networkEntitiesFetcher: NetworkEntitiesFetcher): Repository
 {
-    override fun createDog(
-            userId: String,
-            token: String,
-            name: String,
-            age: Double,
-            breed: String,
-            pureBreed: Boolean,
-            color: String,
-            description: String,
-            photos: List<String>,
-            success: (dogs: List<DogEntityWrapper>) -> Unit,
-            error: (message: String) -> Unit
-    )
+    override fun createDog(userId: String,
+                           token: String,
+                           name: String,
+                           age: Double,
+                           breed: String,
+                           pureBreed: Boolean,
+                           color: String,
+                           description: String,
+                           photos: List<String>,
+                           queryAge: Double,
+                           queryMaxKms: Double,
+                           queryReproductive: Boolean,
+                           queryBreed: String,
+                           success: (dogs: List<DogEntityWrapper>) -> Unit,
+                           error: (message: String) -> Unit)
     {
-        networkEntitiesFetcher.createDog(userId, token, name, age, breed, pureBreed, color, description, photos)
+        networkEntitiesFetcher.createDog(userId, token, name, age, breed, pureBreed, color, description, photos,queryAge, queryMaxKms, queryReproductive, queryBreed)
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
                     cache.saveDog(it.mapDogs())
@@ -161,5 +164,24 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                             error(it.localizedMessage)
                         })
 
+    }
+
+    override fun getDogList(userId: String, dogId: String, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit) {
+        networkEntitiesFetcher.getDogsList(userId, dogId, token)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    var resultDogs = mutableListOf<DogEntityWrapper>()
+                    it.result.forEach {
+                        resultDogs.add(it.map(""))
+                    }
+                    Log.d("REPO",it.toString())
+                    success(resultDogs)
+                },{
+                    Log.d("REPO_ERROR", it.localizedMessage)
+                })
+    }
+
+    override fun newDogLike(dog: DogEntityWrapper, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit) {
+        cache.findLikeFromOther("a","b")
     }
 }

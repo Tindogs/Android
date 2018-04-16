@@ -1,11 +1,13 @@
 package com.appvengers.tindogs.userProfile
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.appvengers.business.models.Dog
 import com.appvengers.tindogs.R
+import com.appvengers.utils.LogTindogs
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cell_list_dog_user_profile.view.*
 
@@ -34,7 +36,7 @@ class UserDogsAdapter(private val dogs: List<Dog>): RecyclerView.Adapter<UserDog
         fun bindDog(dog: Dog)
         {
             itemView.cell_list_dog_user_profile_name.text = dog.name
-            if(dog.photos[0] != "") {
+            if(dog.photos.count() > 0 && dog.photos[0].isNotEmpty()) {
                 Picasso.with(itemView.context)
                         .load(dog.photos.firstOrNull())
                         .placeholder(R.drawable.dog_placeholder)

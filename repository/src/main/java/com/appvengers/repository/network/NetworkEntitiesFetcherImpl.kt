@@ -8,9 +8,10 @@ import io.reactivex.schedulers.Schedulers
 
 internal class NetworkEntitiesFetcherImpl(private val networkManager: NetworkManager): NetworkEntitiesFetcher
 {
-    override fun createDog(userId: String, token: String, name: String, age: Double, breed: String, pureBreed: Boolean, color: String, description: String, photos: List<String>): Flowable<ResultUserJson>
+
+    override fun createDog(userId: String, token: String, name: String, age: Double, breed: String, pureBreed: Boolean, color: String, description: String, photos: List<String>, queryAge: Double, queryMaxKms: Double, queryReproductive: Boolean, queryBreed: String): Flowable<ResultUserJson>
     {
-        return networkManager.createDog(userId, token, name, age, breed, pureBreed, color, description, photos)
+        return networkManager.createDog(userId, token, name, age, breed, pureBreed, color, description, photos,queryAge,queryMaxKms,queryReproductive, queryBreed)
     }
 
     override fun updateUser(firstName: String, lastName: String,  email: String, userName: String, coordinates: List<Double>?,
@@ -37,5 +38,10 @@ internal class NetworkEntitiesFetcherImpl(private val networkManager: NetworkMan
        return networkManager.getUser(email, password)
                 .subscribeOn(Schedulers.io())
 
+    }
+
+    override fun getDogsList(userId: String, dogId: String, token: String): Flowable<ResultDogsJson> {
+        return networkManager.getDogsList(userId,dogId,token)
+                .subscribeOn(Schedulers.io())
     }
 }

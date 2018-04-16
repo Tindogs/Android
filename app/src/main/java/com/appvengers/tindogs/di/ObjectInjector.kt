@@ -3,6 +3,7 @@ package com.appvengers.tindogs.di
 import android.content.Context
 import com.appvengers.business.di.BusinessObjectInjector
 import com.appvengers.business.interactors.GetDogsListInteractor
+import com.appvengers.business.interactors.NewDogLikeInteractor
 import com.appvengers.business.interactors.UploadUserPhotoInteractor
 import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
 import com.appvengers.business.interactors.userCRUD.CreateUserInteractor
@@ -45,4 +46,12 @@ object ObjectInjector
         val businessObjectInjector = BusinessObjectInjector(context)
         return businessObjectInjector.getDogListMatchInteractor()
     }
+
+    fun buildNewDogLikeInteractor(context: Context) : NewDogLikeInteractor {
+        val businessObjectInjector = BusinessObjectInjector(context)
+        return businessObjectInjector.getNewDogLikeInteractor()
+    }
+
+
+
 }

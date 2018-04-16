@@ -1,6 +1,7 @@
 package com.appvengers.repository
 
 import com.appvengers.repository.models.DogEntityWrapper
+import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 
 interface Repository
@@ -27,6 +28,14 @@ interface Repository
                   color: String,
                   description: String,
                   photos: List<String>,
+                  queryAge: Double,
+                  queryMaxKms: Double,
+                  queryReproductive: Boolean,
+                  queryBreed: String,
                   success: (dogs: List<DogEntityWrapper>) -> Unit,
                   error: (message: String) -> Unit)
+
+    fun newDogLike(dog:DogEntityWrapper, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit)
+
+    fun getDogList(userId: String, dogId: String, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit)
 }
