@@ -11,9 +11,7 @@ import com.appvengers.business.models.Dog
 import com.appvengers.tindogs.R
 import com.squareup.picasso.Picasso
 
-/**
- * Created by carlosledesma on 10/4/18.
- */
+
 class DogMatchCardAdapter(context: Context) : ArrayAdapter<Dog>(context, 0) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

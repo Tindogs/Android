@@ -7,6 +7,7 @@ import com.appvengers.repository.models.QueryEntityWrapper
 
 class QueryDAO(session: DaoSession, dogId: String) : DAOPersistable<QueryEntityWrapper> {
 
+
     private val queryEntityDao = session.queryEntityDao
     private val dogId = dogId
 
@@ -44,5 +45,7 @@ class QueryDAO(session: DaoSession, dogId: String) : DAOPersistable<QueryEntityW
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-
+    override fun queryAllWithId(id: String): List<QueryEntityWrapper> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

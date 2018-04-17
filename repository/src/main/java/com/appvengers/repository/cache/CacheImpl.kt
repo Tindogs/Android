@@ -8,7 +8,9 @@ import io.reactivex.Flowable
 import io.reactivex.BackpressureStrategy
 
 
-internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEntityWrapper>, private val daoDogPersistable: DAOPersistable<DogEntityWrapper>): Cache
+internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEntityWrapper>,
+                         private val daoDogPersistable: DAOPersistable<DogEntityWrapper>,
+                         private val daoDogLikePersistable: DAOPersistable<DogLikeEntityWrapper>): Cache
 {
     override fun saveDog(allDogsEntityWrapper: List<DogEntityWrapper>): Flowable<Boolean>
     {
@@ -50,9 +52,13 @@ internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEnti
     }
 
     override fun findLikeFromOther(dogWhoLikesId: String, localDogId: String): Flowable<Boolean> {
-        return Flowable.fromCallable {
-            true
-        }
+         return Flowable.fromCallable {
+             var filteredResult = daoDogLikePersistable.queryAllWithId(localDogId).filter {
+                 LogTindogs(it.toString(),Log.DEBUG)
+                 it.dogWhoLikesId == dogWhoLikesId
+             }
+             filteredResult.count() >= 1
+         }
     }
 
 }

@@ -4,6 +4,7 @@ package com.appvengers.repository.db
 import android.util.Log
 import com.appvengers.repository.models.UserEntityWrapper
 import com.appvengers.db.DaoSession
+import com.appvengers.db.DogLikeEntityDao
 import com.appvengers.repository.mappers.map
 import com.appvengers.repository.mappers.mapToPhotoEntity
 import com.appvengers.repository.models.DogEntityWrapper
@@ -12,6 +13,7 @@ import com.appvengers.utils.LogTindogs
 //TODO("Gestion de errores")
 internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEntityWrapper>
 {
+
 
 
     private val userEntityDAO by lazy { session.userEntityDao }
@@ -112,7 +114,13 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
     override fun queryAll(): List<UserEntityWrapper>
     {
         return userEntityDAO.loadAll().map { it.map()!! }
+
     }
+
+    override fun queryAllWithId(id: String): List<UserEntityWrapper> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
     private fun insertOrReplaceDogsFromUser(userEntityWrapper: UserEntityWrapper)
     {
@@ -123,7 +131,6 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
                 dogEntityDao.insertOrReplace(dog.map())
 
                 dog.likesFromOthers.forEach{
-                    Log.d("DB", it.toString())
                     dogLikeEntityDao.insertOrReplace(it.map(dog._id))
 
                 }

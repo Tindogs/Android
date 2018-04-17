@@ -9,7 +9,6 @@ import com.appvengers.repository.mappers.mapToPhotoEntity
 class DogDAO(session: DaoSession): DAOPersistable<DogEntityWrapper>
 {
 
-
     private val dogEntityDao = session.dogEntityDao
     private val dogLikeEntityDao by lazy { session.dogLikeEntityDao }
     private val photosEntityDao by lazy { session.photosEntityDao }
@@ -72,5 +71,9 @@ class DogDAO(session: DaoSession): DAOPersistable<DogEntityWrapper>
     override fun queryAll(): List<DogEntityWrapper>
     {
         return dogEntityDao.loadAll().map { it.map() }
+    }
+
+    override fun queryAllWithId(id: String): List<DogEntityWrapper> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

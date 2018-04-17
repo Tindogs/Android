@@ -6,10 +6,7 @@ import com.appvengers.repository.Repository
 import com.appvengers.repository.RepositoryImpl
 import com.appvengers.repository.cache.Cache
 import com.appvengers.repository.cache.CacheImpl
-import com.appvengers.repository.db.DAOPersistable
-import com.appvengers.repository.db.DBHelper
-import com.appvengers.repository.db.DogDAO
-import com.appvengers.repository.db.UserDAO
+import com.appvengers.repository.db.*
 import com.appvengers.repository.models.*
 import com.appvengers.repository.network.NetworkEntitiesFetcher
 import com.appvengers.repository.network.NetworkEntitiesFetcherImpl
@@ -32,7 +29,7 @@ class RepositoryObjectInjector(private val weakContext: WeakReference<Context>)
     internal fun buildCache(): Cache
     {
 
-        return CacheImpl(buildUserDaoPersistable(), buildDogDaoPersistable())
+        return CacheImpl(buildUserDaoPersistable(), buildDogDaoPersistable(),buildDogLikePersistable())
     }
 
     internal fun buildNetworkEntitiesFetcher(): NetworkEntitiesFetcher
@@ -52,6 +49,10 @@ class RepositoryObjectInjector(private val weakContext: WeakReference<Context>)
     internal fun buildDogDaoPersistable(): DAOPersistable<DogEntityWrapper>
     {
         return DogDAO(dbHelper.getSession())
+    }
+
+    internal fun buildDogLikePersistable(): DAOPersistable<DogLikeEntityWrapper> {
+        return DogLikesDAO(dbHelper.getSession())
     }
 
     private fun getHttpClient(): OkHttpClient =

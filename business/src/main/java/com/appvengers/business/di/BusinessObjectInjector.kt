@@ -43,4 +43,8 @@ class BusinessObjectInjector(context: Context)
         return NewDogLikeInteractorImpl()
 
     }
+
+    fun getNewDogDislkeInteractor(): NewDogDislikeInteractor {
+        return NewDogDislikeInteractorImpl()
+    }
 }

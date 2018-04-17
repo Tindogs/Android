@@ -50,12 +50,15 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
     private fun associatePresenter()
     {
-        presenter = MatchPresenter(this,ObjectInjector.buildDogMatchInteractor(this))
+        presenter = MatchPresenter(this,
+                ObjectInjector.buildDogMatchInteractor(this),
+                ObjectInjector.buildNewDogLikeInteractor(this),
+                ObjectInjector.buidNewDogDislikeInteractor(this))
     }
 
     private fun setup() {
         adapter = DogMatchCardAdapter(this)
-        cardStackView = findViewById(R.id.activity_match_card_stack_view) as CardStackView
+        cardStackView = findViewById(R.id.activity_match_card_stack_view)
 
         cardStackView?.setCardEventListener(object : CardStackView.CardEventListener {
             override fun onCardDragging(percentX: Float, percentY: Float) {
@@ -72,11 +75,11 @@ class MatchActivity : BaseActivity(), MatchContract.View {
                 Log.d("CardStackView", "onCardSwiped: " + direction.toString())
                 if (direction.toString() == "Right") {
                     //hacemos like al perrete que estamos viendo
-                    presenter.newDogLike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                   // presenter.newDogLike(adapter?.getItem(cardStackView?.topIndex!!)!!)
 
                 } else if(direction.toString() == "Left") {
                     //hacemos dislike al perrete que estamos viendo
-                    presenter.newDogDislike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                    //presenter.newDogDislike(adapter?.getItem(cardStackView?.topIndex!!)!!)
                 }
 
             }

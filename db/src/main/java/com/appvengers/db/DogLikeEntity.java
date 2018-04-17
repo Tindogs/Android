@@ -14,7 +14,7 @@ public class DogLikeEntity {
 
     //Perro haciendo matches ahora mismo
     private String dogIdLiked;
-    //Perro que hizo match previamente a dogIdLiked
+    //Perro que hizo like previamente a dogIdLiked
     private String dogIdWhoLikes;
 
     @NotNull

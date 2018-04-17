@@ -3,6 +3,7 @@ package com.appvengers.tindogs.di
 import android.content.Context
 import com.appvengers.business.di.BusinessObjectInjector
 import com.appvengers.business.interactors.GetDogsListInteractor
+import com.appvengers.business.interactors.NewDogDislikeInteractor
 import com.appvengers.business.interactors.NewDogLikeInteractor
 import com.appvengers.business.interactors.UploadUserPhotoInteractor
 import com.appvengers.business.interactors.dogCRUD.CreateDogInteractor
@@ -50,6 +51,11 @@ object ObjectInjector
     fun buildNewDogLikeInteractor(context: Context) : NewDogLikeInteractor {
         val businessObjectInjector = BusinessObjectInjector(context)
         return businessObjectInjector.getNewDogLikeInteractor()
+    }
+
+    fun buidNewDogDislikeInteractor(context: Context) : NewDogDislikeInteractor {
+        val businessObjectInjector = BusinessObjectInjector(context)
+        return businessObjectInjector.getNewDogDislkeInteractor()
     }
 
 

@@ -25,6 +25,7 @@ interface DAOWritable<in T> {
 interface  DAOReadable<out T> {
     fun query(databaseID: String): T?
     fun queryAll(): List<T>
+    fun queryAllWithId(id: String): List<T>
 
 }
 interface DAOPersistable<T>: DAOReadable<T>, DAOWritable<T>
