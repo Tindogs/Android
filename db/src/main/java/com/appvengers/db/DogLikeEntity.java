@@ -12,7 +12,9 @@ public class DogLikeEntity {
     @Id(autoincrement = true)
     private Long _id;
 
+    //Perro haciendo matches ahora mismo
     private String dogIdLiked;
+    //Perro que hizo match previamente a dogIdLiked
     private String dogIdWhoLikes;
 
     @NotNull

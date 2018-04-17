@@ -49,8 +49,10 @@ internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEnti
         }
     }
 
-    override fun findLikeFromOther(dogLikedId: String, ownerDogId: String): Flowable<Boolean> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun findLikeFromOther(dogWhoLikesId: String, localDogId: String): Flowable<Boolean> {
+        return Flowable.fromCallable {
+            true
+        }
     }
 
 }

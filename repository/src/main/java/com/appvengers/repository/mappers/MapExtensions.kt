@@ -74,7 +74,8 @@ fun DogJsonEntity.map(userId: String): DogEntityWrapper
     val photos = this.photos ?: listOf()
     val pureBreed = this.pureBreed ?: false
     val age = this.age ?: 1.0
-    return DogEntityWrapper(this._id, this.name, age, breed, pureBreed, color, description, photos, query.map(), likesFromOthers.map { it.map() }, userId)
+    val name = this.name ?: ""
+    return DogEntityWrapper(this._id, name, age, breed, pureBreed, color, description, photos, query.map(), likesFromOthers.map { it.map(this._id) }, userId)
 }
 
 fun com.appvengers.db.DogEntity.map():DogEntityWrapper
@@ -87,19 +88,19 @@ fun DogLikeEntityWrapper.map(dogId: String): com.appvengers.db.DogLikeEntity
 {
     val dogLikeEntity= com.appvengers.db.DogLikeEntity()
     dogLikeEntity.dogIdLiked = dogId
-    dogLikeEntity.dogIdWhoLikes = this.dogWhoLikes
-    dogLikeEntity.name = this.name
+    dogLikeEntity.dogIdWhoLikes = this.dogWhoLikesId
+    dogLikeEntity.name = this.dogName
     return dogLikeEntity
 }
 
-fun DogLikeJsonEntity.map(): DogLikeEntityWrapper
+fun DogLikeJsonEntity.map(dogId: String): DogLikeEntityWrapper
 {
-    return DogLikeEntityWrapper(this.dogWhoLikes, this.dogName)
+    return DogLikeEntityWrapper(this.dogWhoLikes,this.dogName,dogId)
 }
 
 fun DogLikeEntity.map(): DogLikeEntityWrapper
 {
-    return DogLikeEntityWrapper(this.dogIdWhoLikes, this.name)
+    return DogLikeEntityWrapper(this.dogIdWhoLikes, this.name, this.dogIdLiked)
 }
 
 fun QueryEntityWrapper.map(dogId: String): com.appvengers.db.QueryEntity

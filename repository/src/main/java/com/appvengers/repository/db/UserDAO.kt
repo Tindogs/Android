@@ -123,7 +123,9 @@ internal class UserDAO(private val session: DaoSession): DAOPersistable<UserEnti
                 dogEntityDao.insertOrReplace(dog.map())
 
                 dog.likesFromOthers.forEach{
+                    Log.d("DB", it.toString())
                     dogLikeEntityDao.insertOrReplace(it.map(dog._id))
+
                 }
 
                 dog.photos.forEach {

@@ -1,26 +1,24 @@
 package com.appvengers.repository.db
 
-import com.appvengers.db.DaoSession
+import com.appvengers.repository.models.DogLikeEntityWrapper
 
-import com.appvengers.repository.models.LikesFromOthersEntityWrapper
-
-class LikesFromOthersDAO(session: DaoSession): DAOPersistable<LikesFromOthersEntityWrapper> {
-
-
-
-    override fun insert(element: LikesFromOthersEntityWrapper): String {
+/**
+ * Created by carlosledesma on 17/4/18.
+ */
+class DogLikesDAO: DAOPersistable<DogLikeEntityWrapper> {
+    override fun insert(element: DogLikeEntityWrapper): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun insert(list: List<LikesFromOthersEntityWrapper>): Boolean {
+    override fun insert(list: List<DogLikeEntityWrapper>): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun update(element: LikesFromOthersEntityWrapper): Boolean {
+    override fun update(element: DogLikeEntityWrapper): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun delete(element: LikesFromOthersEntityWrapper): Boolean {
+    override fun delete(element: DogLikeEntityWrapper): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -32,11 +30,11 @@ class LikesFromOthersDAO(session: DaoSession): DAOPersistable<LikesFromOthersEnt
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun query(databaseID: String): LikesFromOthersEntityWrapper? {
+    override fun query(databaseID: String): DogLikeEntityWrapper? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun queryAll(): List<LikesFromOthersEntityWrapper> {
+    override fun queryAll(): List<DogLikeEntityWrapper> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
