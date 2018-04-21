@@ -75,7 +75,7 @@ class MatchActivity : BaseActivity(), MatchContract.View {
                 Log.d("CardStackView", "onCardSwiped: " + direction.toString())
                 if (direction.toString() == "Right") {
                     //hacemos like al perrete que estamos viendo
-                   // presenter.newDogLike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                    presenter.newDogLike(userId!!,adapter?.getItem(cardStackView?.topIndex!!)!!,dogId!!,token!!)
 
                 } else if(direction.toString() == "Left") {
                     //hacemos dislike al perrete que estamos viendo

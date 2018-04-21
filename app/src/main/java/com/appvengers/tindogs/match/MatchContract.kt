@@ -11,8 +11,8 @@ interface MatchContract {
 
     interface Presenter {
         fun getDogsList(userId: String, dogId: String, token: String)
-        fun newDogLike(dog: Dog)
-        fun newDogDislike(dog: Dog)
+        fun newDogLike(userId: String, dog: Dog,localDogId: String,token: String)
+        fun newDogDislike(userId: String, dog: Dog, localDogId: String, token: String)
 
 
     }

@@ -11,16 +11,19 @@ class MatchPresenter(private  val view: MatchContract.View,
                      private val newDogLikeInteractor: NewDogLikeInteractor,
                      private val newDogDislikeInteractor: NewDogDislikeInteractor): MatchContract.Presenter {
 
-    override fun newDogLike(dog: Dog) {
-        newDogLikeInteractor.execute(dog._id, success = {
-
-        }, error = {
-            view.onMatchViewError(it)
-        })
+    override fun newDogLike(userId: String, dog: Dog, localDogId: String, token: String) {
+            newDogLikeInteractor.execute(userId,dog,localDogId,true,token, success =  { b: Boolean, dog: Dog? ->
+                if(b) {
+                    view.onMatchViewError("Es un match!")
+                }
+            },error = {
+                view.onMatchViewError(it)
+            })
     }
 
-    override fun newDogDislike(dog: Dog) {
-        newDogDislikeInteractor.execute(dog._id,success = {
+    override fun newDogDislike(userId: String, dog: Dog, localDogId: String, token: String) {
+
+        newDogDislikeInteractor.execute(userId,dog, localDogId, false, token, success = {
 
         }, error = {
             view.onMatchViewError(it)

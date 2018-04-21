@@ -1,6 +1,7 @@
 package com.appvengers.repository.network
 import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.network.model.ResultDogsJson
+import com.appvengers.repository.network.model.ResultLikesJson
 import com.appvengers.repository.network.model.ResultUserJson
 import com.appvengers.repository.network.model.UserJsonEntity
 import io.reactivex.Flowable
@@ -27,4 +28,6 @@ interface NetworkEntitiesFetcher
                     queryBreed: String): Flowable<ResultUserJson>
 
     fun getDogsList(userId: String, dogId: String, token: String): Flowable<ResultDogsJson>
+
+    fun putNewDogLike(userId: String,dogLocalId: String, dogWhoLikes: String, valueLike: Boolean, token: String): Flowable<ResultLikesJson>
 }

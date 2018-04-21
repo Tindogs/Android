@@ -2,8 +2,8 @@ package com.appvengers.business.interactors.dogCRUD
 
 import android.util.Log
 import com.appvengers.business.mappers.map
+import com.appvengers.business.mappers.mapToDog
 import com.appvengers.business.models.Dog
-import com.appvengers.business.models.Query
 import com.appvengers.repository.Repository
 import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.utils.LogTindogs
@@ -28,7 +28,7 @@ class CreateDogInteractorImpl(private val repository: Repository): CreateDogInte
 
         repository.createDog(userId, token, name, age, breed, pureBreed, color, description,photos,age,100000.0,true,breed,
                 success = { dogList: List<DogEntityWrapper> ->
-                    success(dogList.map{ it.map()})
+                    success(dogList.map{ it.mapToDog()})
                 },
                 error = {message: String ->
                     error(message)

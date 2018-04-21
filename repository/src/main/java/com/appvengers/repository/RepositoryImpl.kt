@@ -8,6 +8,7 @@ import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 import com.appvengers.repository.network.NetworkEntitiesFetcher
+import com.appvengers.repository.network.model.InnerMatchResultEntity
 import com.appvengers.repository.network.model.ResultUserJson
 import com.appvengers.utils.LogTindogs
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -181,7 +182,15 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 })
     }
 
-    override fun newDogLike(dog: DogEntityWrapper, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit) {
-        cache.findLikeFromOther("a","b")
+    override fun newDogLike(userId: String, dog: DogEntityWrapper, localDogId: String, likeValue: Boolean, token: String, success: (resultMatch: InnerMatchResultEntity) -> Unit, error: (message: String) -> Unit) {
+        /*cache.findLikeFromOther(dogLikedId = dog._id, localDogId = localDogId)
+            .subscribe{
+                success(it)
+            }*/
+        networkEntitiesFetcher.putNewDogLike(userId,localDogId,dog._id,likeValue,token)
+                .subscribe {
+                    LogTindogs(it.toString(),Log.DEBUG)
+                    success(it.result.match)
+                }
     }
 }

@@ -44,4 +44,9 @@ internal class NetworkEntitiesFetcherImpl(private val networkManager: NetworkMan
         return networkManager.getDogsList(userId,dogId,token)
                 .subscribeOn(Schedulers.io())
     }
+
+    override fun putNewDogLike(userId: String,dogLocalId: String, dogWhoLikes: String, valueLike: Boolean, token: String): Flowable<ResultLikesJson> {
+        return networkManager.putNewDogLike(userId,dogLocalId,dogWhoLikes,valueLike,token)
+                .subscribeOn(Schedulers.io())
+    }
 }

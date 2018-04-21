@@ -3,6 +3,7 @@ package com.appvengers.repository
 import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
+import com.appvengers.repository.network.model.InnerMatchResultEntity
 
 interface Repository
 {
@@ -35,7 +36,7 @@ interface Repository
                   success: (dogs: List<DogEntityWrapper>) -> Unit,
                   error: (message: String) -> Unit)
 
-    fun newDogLike(dog:DogEntityWrapper, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit)
+    fun newDogLike(userId: String, dog:DogEntityWrapper, localDogId: String, likeValue: Boolean, token: String, success: (resultMatch: InnerMatchResultEntity) -> Unit, error: (message: String) -> Unit)
 
     fun getDogList(userId: String, dogId: String, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit)
 }
