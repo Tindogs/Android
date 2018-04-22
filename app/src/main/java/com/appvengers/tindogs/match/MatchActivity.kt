@@ -79,7 +79,7 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
                 } else if(direction.toString() == "Left") {
                     //hacemos dislike al perrete que estamos viendo
-                    //presenter.newDogDislike(adapter?.getItem(cardStackView?.topIndex!!)!!)
+                    presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView?.topIndex!!)!!,dogId!!, token!!)
                 }
 
             }

@@ -31,7 +31,8 @@
             android:parentActivityName=".login.MainActivity" />
         <activity android:name=".userProfile.UserProfileActivity" />
         <activity android:name=".dogRegister.DogRegisterActivity" />
-        <activity android:name=".match.MatchActivity"></activity>
+        <activity android:name=".match.MatchActivity" />
+        <activity android:name=".editUserProfile.EditUserProfileActivity"></activity>
     </application>
 
 </manifest>
