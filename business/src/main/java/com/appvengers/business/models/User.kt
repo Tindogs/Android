@@ -6,11 +6,11 @@ import java.io.Serializable
 
 data class User(
         val _id: String,
-        val firstName: String,
-        val lastName:String,
+        var firstName: String,
+        var lastName:String,
           val email: String,
-        val userName: String,
+        var userName: String,
         var coordinates: Pair<Double, Double>?,
         val dogs: List<Dog>,
-        val photo: String
+        var photo: String
 ): Serializable

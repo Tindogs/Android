@@ -74,6 +74,7 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result: Boolean ->
+
                             if (result)
                             {
                                 success(user)

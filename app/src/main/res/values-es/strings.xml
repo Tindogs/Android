@@ -43,4 +43,5 @@
     <string name="dog_register_validation_age">La edad del perro debe estar entre 0 y 30</string>
     <string name="dog_register_validation_desription_empty">La descripción del perro no puede estar vacía</string>
     <string name="cell_list_dog_user_profile_dog_description">Descripción</string>
+    <string name="edit_user_profile_new_photo">Foto Perfil</string>
 </resources>

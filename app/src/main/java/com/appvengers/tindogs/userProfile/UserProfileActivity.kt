@@ -21,6 +21,7 @@ import com.appvengers.business.models.Dog
 
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.di.ObjectInjector
+import com.appvengers.tindogs.editUserProfile.EditUserProfileActivity
 import com.appvengers.tindogs.router.Router
 import com.appvengers.utils.LogTindogs
 import com.appvengers.utils.PreferencesRepository
@@ -78,6 +79,9 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
             presenter.getUser(userInfo.userId, userInfo.token)
             user_profile_add_dog_button.setOnClickListener {
                 Router.navigateToDogRegister(this)
+            }
+            user_profile_edit_button.setOnClickListener {
+                Router.navigateToEditUserProfile(this)
             }
 
         }
@@ -207,7 +211,7 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
         val states = LocationSettingsStates.fromIntent(data)
-        LogTindogs( "Location states" + states.toString(), Log.DEBUG)
+        //LogTindogs( "Location states" + states.toString(), Log.DEBUG)
         when (requestCode)
         {
             REQUEST_CHECK_SETTINGS ->
@@ -231,6 +235,19 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
                     }
 
                 }
+
+            EditUserProfileActivity.REQUEST_NUMBER -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        /* No pasa nada */
+                    }
+                }
+
+            }
+
 
         }
 
@@ -263,4 +280,6 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
     {
         setError(user_profile_main_view, message)
     }
+
+
 }
