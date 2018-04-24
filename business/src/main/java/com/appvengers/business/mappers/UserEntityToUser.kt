@@ -38,7 +38,8 @@ internal fun Query.map(): QueryEntityWrapper
 
 internal fun DogLikeEntityWrapper.map(dogId: String): DogLike
 {
-    return DogLike(this.dogWhoLikesId, this.dogName, dogId)
+    val dogName = this.dogName ?: ""
+    return DogLike(this.dogWhoLikesId, dogName, dogId)
 }
 
 internal fun DogLike.map(dogId: String): DogLikeEntityWrapper

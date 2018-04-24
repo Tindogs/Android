@@ -1,5 +1,8 @@
 package com.appvengers.tindogs.match
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +21,8 @@ class MatchActivity : BaseActivity(), MatchContract.View {
     companion object {
 
         const val DOG_MATCHING_ID = "DOG_MATCHING_ID"
+        const val SWIPE_LEFT = "Left"
+        const val SWIPE_RIGHT = "Right"
         fun intent(context: Context, dog: Dog): Intent {
             val intent = Intent(context, MatchActivity::class.java)
 
@@ -33,12 +38,13 @@ class MatchActivity : BaseActivity(), MatchContract.View {
     private var userId : String? =  null
     private var token : String? = null
 
-    private var cardStackView : CardStackView? = null
+    private lateinit var cardStackView : CardStackView
     private var adapter : DogMatchCardAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setTitle("Matches")
         setContentView(R.layout.activity_match)
         dogId = intent.getStringExtra(DOG_MATCHING_ID)
 
@@ -60,26 +66,26 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         adapter = DogMatchCardAdapter(this)
         cardStackView = findViewById(R.id.activity_match_card_stack_view)
 
-        cardStackView?.setCardEventListener(object : CardStackView.CardEventListener {
+        cardStackView.setCardEventListener(object : CardStackView.CardEventListener {
             override fun onCardDragging(percentX: Float, percentY: Float) {
                 Log.d("CardStackView", "onCardDragging")
             }
 
             override fun onCardSwiped(direction: SwipeDirection) {
 
-                if (cardStackView?.getTopIndex() === adapter?.count?.minus(1)) {
-                    Log.d("CardStackView", "Paginate: " + cardStackView?.topIndex)
+                if (cardStackView.getTopIndex() === adapter?.count?.minus(1)) {
+                    Log.d("CardStackView", "Paginate: " + cardStackView.topIndex)
                     presenter.getDogsList(userId!!, dogId!!, token!!)
                 }
 
                 Log.d("CardStackView", "onCardSwiped: " + direction.toString())
-                if (direction.toString() == "Right") {
-                    //hacemos like al perrete que estamos viendo
-                    presenter.newDogLike(userId!!,adapter?.getItem(cardStackView?.topIndex!!)!!,dogId!!,token!!)
+                if (direction.toString() == SWIPE_RIGHT) {
+                    //hacemos like al perrete que acabamos de ver
+                    presenter.newDogLike(userId!!,adapter?.getItem(cardStackView.topIndex!!-1)!!,dogId!!,token!!)
 
-                } else if(direction.toString() == "Left") {
-                    //hacemos dislike al perrete que estamos viendo
-                    presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView?.topIndex!!)!!,dogId!!, token!!)
+                } else if(direction.toString() == SWIPE_LEFT) {
+                    //hacemos dislike al perrete que acabamos de ver
+                    presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView.topIndex!!-1)!!,dogId!!, token!!)
                 }
 
             }
@@ -97,19 +103,29 @@ class MatchActivity : BaseActivity(), MatchContract.View {
             }
         })
 
+        like_button_match.setOnClickListener {
+            swipeRight()
+            presenter.newDogLike(userId!!,adapter?.getItem(cardStackView.topIndex!!)!!,dogId!!,token!!)
+        }
+
+        dislike_button_match.setOnClickListener {
+            swipeLeft()
+            presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView.topIndex!!)!!,dogId!!, token!!)
+        }
+
     }
 
     private fun reload() {
-        cardStackView?.visibility = View.GONE
-        cardStackView?.setAdapter(adapter)
-        cardStackView?.visibility = View.VISIBLE
+        cardStackView.visibility = View.GONE
+        cardStackView.setAdapter(adapter)
+        cardStackView.visibility = View.VISIBLE
         userId =  getTokenAndUserId()?.userId
         token = getTokenAndUserId()?.token
         presenter.getDogsList(userId!!,dogId!!, token!!)
     }
 
     private fun paginate(dogs: MutableList<Dog>) {
-        cardStackView?.setPaginationReserved()
+        cardStackView.setPaginationReserved()
         adapter?.addAll(dogs)
         adapter?.notifyDataSetChanged()
     }
@@ -120,5 +136,59 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
     override fun onMatchViewError(msg: String) {
         this.setError(match_main_view, msg)
+    }
+
+    private fun swipeLeft() {
+
+        val target = cardStackView.topView
+        val targetOverlay = cardStackView.topView.overlayContainer
+
+        val rotation = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("rotation", -10f))
+        rotation.duration = 200
+        val translateX = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("translationX", 0f, -2000f))
+        val translateY = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("translationY", 0f, 500f))
+        translateX.startDelay = 100
+        translateY.startDelay = 100
+        translateX.duration = 500
+        translateY.duration = 500
+        val cardAnimationSet = AnimatorSet()
+        cardAnimationSet.playTogether(rotation, translateX, translateY)
+
+        val overlayAnimator = ObjectAnimator.ofFloat(targetOverlay, "alpha", 0f, 1f)
+        overlayAnimator.duration = 200
+        val overlayAnimationSet = AnimatorSet()
+        overlayAnimationSet.playTogether(overlayAnimator)
+
+        cardStackView.swipe(SwipeDirection.Left, cardAnimationSet, overlayAnimationSet)
+    }
+
+    private fun swipeRight() {
+
+        val target = cardStackView.topView
+        val targetOverlay = cardStackView.topView.overlayContainer
+
+        val rotation = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("rotation", 10f))
+        rotation.duration = 200
+        val translateX = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("translationX", 0f, 2000f))
+        val translateY = ObjectAnimator.ofPropertyValuesHolder(
+                target, PropertyValuesHolder.ofFloat("translationY", 0f, 500f))
+        translateX.startDelay = 100
+        translateY.startDelay = 100
+        translateX.duration = 500
+        translateY.duration = 500
+        val cardAnimationSet = AnimatorSet()
+        cardAnimationSet.playTogether(rotation, translateX, translateY)
+
+        val overlayAnimator = ObjectAnimator.ofFloat(targetOverlay, "alpha", 0f, 1f)
+        overlayAnimator.duration = 200
+        val overlayAnimationSet = AnimatorSet()
+        overlayAnimationSet.playTogether(overlayAnimator)
+
+        cardStackView.swipe(SwipeDirection.Right, cardAnimationSet, overlayAnimationSet)
     }
 }

@@ -12,12 +12,14 @@ interface EditUserProfileContract {
         fun setErrorView(msg: String)
         fun setResultOk()
         fun setResultCancel()
+        fun setNewPhotoUrl(uri: Uri)
 
     }
     interface Presenter
     {
         fun getUser(userId: String, token: String)
         fun updateUser(firstName: String, lastName: String, userName: String, photoUrl: Uri, token: String)
+        fun uploadPhoto(url: Uri)
     }
 
 }

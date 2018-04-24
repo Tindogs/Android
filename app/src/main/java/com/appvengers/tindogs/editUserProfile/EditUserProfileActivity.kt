@@ -21,6 +21,7 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
     companion object
     {
         const val REQUEST_NUMBER = 123
+        private val REQUEST_CODE_USER_PHOTO = 1234
         fun intent(context: Context): Intent
         {
             val intent = Intent(context, EditUserProfileActivity::class.java)
@@ -35,8 +36,10 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
     private lateinit var token: String
     private var photoUrl : String = ""
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTitle("Edición de perfil")
         associatePresenter()
         addValidation()
         setContentView(R.layout.activity_edit_user_profile)
@@ -57,6 +60,12 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
                 presenter.updateUser(firstName,lastName,userName, uri,token)
             }
         }
+
+        edit_user_photo_profile.setOnClickListener {
+            var intentPicker = Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intentPicker,REQUEST_CODE_USER_PHOTO)
+        }
+
         presenter.getUser(userId, token)
     }
 
@@ -99,10 +108,7 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
         edit_username_user_profile.text = SpannableStringBuilder(user.userName)
         if(user.photo != "") {
             photoUrl = user.photo
-            Picasso.with(this)
-                    .load(user.photo)
-                    .placeholder(R.drawable.dog_placeholder)
-                    .into(edit_user_photo_profile)
+            loadWithPicasso(Uri.parse(user.photo))
         } else {
             Picasso.with(this)
                     .load(R.drawable.dog_placeholder)
@@ -120,5 +126,29 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
 
     override fun setResultCancel() {
         commonOnCancel()
+    }
+
+    override fun setNewPhotoUrl(uri: Uri) {
+        loadWithPicasso(uri)
+    }
+
+    private fun loadWithPicasso(uri: Uri) {
+        Picasso.with(this)
+                .load(uri)
+                .placeholder(R.drawable.dog_placeholder)
+                .into(edit_user_photo_profile)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode) {
+            REQUEST_CODE_USER_PHOTO ->
+                    when(resultCode) {
+                        Activity.RESULT_OK ->
+                                data?.let {
+                                    var resp : Uri = data.data
+                                    presenter.uploadPhoto(resp)
+                                }
+                    }
+        }
     }
 }

@@ -4,11 +4,12 @@ import android.net.Uri
 import com.appvengers.business.interactors.userCRUD.GetUserInteractor
 import com.appvengers.business.interactors.userCRUD.UpdateUserInteractor
 import com.appvengers.business.models.User
+import com.appvengers.tindogs.uploads.Uploads
+import com.appvengers.tindogs.uploads.UploadsFirebaseImpl
 
 class EditUserProfilePresenter(private val view: EditUserProfileContract.View,
                                private val updateUserInteractor: UpdateUserInteractor,
                                private val getUserInteractor: GetUserInteractor): EditUserProfileContract.Presenter {
-
     private lateinit var user: User
 
     override fun getUser(userId: String, token: String) {
@@ -33,4 +34,13 @@ class EditUserProfilePresenter(private val view: EditUserProfileContract.View,
         })
     }
 
+    override fun uploadPhoto(uri: Uri) {
+        val uploadsFirebaseImpl : Uploads = UploadsFirebaseImpl()
+        uploadsFirebaseImpl.uploadPhoto(uri = uri, success = {
+            user.photo = it.toString()
+            view.setNewPhotoUrl(it)
+        }, error = {
+            error(it)
+        })
+    }
 }

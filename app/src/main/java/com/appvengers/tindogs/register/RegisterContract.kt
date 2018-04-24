@@ -10,6 +10,7 @@ interface RegisterContract
         fun openUserProfile()
         fun setRegisterError(message: String)
         fun saveTokenAndUserId(token: String, userId: String)
+
     }
     interface Presenter
     {

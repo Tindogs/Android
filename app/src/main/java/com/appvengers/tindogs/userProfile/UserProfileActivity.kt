@@ -239,7 +239,7 @@ class UserProfileActivity : BaseActivity(), UserProfileContract.View
             EditUserProfileActivity.REQUEST_NUMBER -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-
+                        presenter.getUser(getTokenAndUserId()!!.userId,getTokenAndUserId()!!.token)
                     }
                     Activity.RESULT_CANCELED -> {
                         /* No pasa nada */

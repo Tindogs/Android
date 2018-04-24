@@ -5,10 +5,9 @@ import com.appvengers.repository.cache.Cache
 import com.appvengers.repository.mappers.map
 import com.appvengers.repository.mappers.mapDogs
 import com.appvengers.repository.models.DogEntityWrapper
-import com.appvengers.repository.models.QueryEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 import com.appvengers.repository.network.NetworkEntitiesFetcher
-import com.appvengers.repository.network.model.InnerMatchResultEntity
+import com.appvengers.repository.network.model.MatchResultEntity
 import com.appvengers.repository.network.model.ResultUserJson
 import com.appvengers.utils.LogTindogs
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -55,6 +54,7 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
 
     override fun updateUser(user: UserEntityWrapper, token: String, success: (user: UserEntityWrapper) -> Unit, error: (message: String) -> Unit)
     {
+        LogTindogs(user.toString(),Log.DEBUG)
         cache.updateUser(user)
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
@@ -183,7 +183,7 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 })
     }
 
-    override fun newDogLike(userId: String, dog: DogEntityWrapper, localDogId: String, likeValue: Boolean, token: String, success: (resultMatch: InnerMatchResultEntity) -> Unit, error: (message: String) -> Unit) {
+    override fun newDogLike(userId: String, dog: DogEntityWrapper, localDogId: String, likeValue: Boolean, token: String, success: (resultMatch: MatchResultEntity) -> Unit, error: (message: String) -> Unit) {
         /*cache.findLikeFromOther(dogLikedId = dog._id, localDogId = localDogId)
             .subscribe{
                 success(it)
@@ -191,7 +191,7 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
         networkEntitiesFetcher.putNewDogLike(userId,localDogId,dog._id,likeValue,token)
                 .subscribe {
                     LogTindogs(it.toString(),Log.DEBUG)
-                    success(it.result.match)
+                    success(it.result)
                 }
     }
 }
