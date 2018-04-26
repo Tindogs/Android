@@ -79,7 +79,7 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
             override fun onCardSwiped(direction: SwipeDirection) {
 
-                if (cardStackView.getTopIndex() === adapter?.count?.minus(1)) {
+                if (cardStackView.topIndex == adapter?.count?.minus(1)) {
                     Log.d("CardStackView", "Paginate: " + cardStackView.topIndex)
                     enableButtons(false)
                     presenter.getDogsList(userId!!, dogId!!, token!!)

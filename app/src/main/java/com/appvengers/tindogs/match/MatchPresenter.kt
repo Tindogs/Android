@@ -1,12 +1,10 @@
 package com.appvengers.tindogs.match
 
-import android.app.AlertDialog
 import android.util.Log
 import com.appvengers.business.interactors.GetDogsListInteractor
 import com.appvengers.business.interactors.NewDogDislikeInteractor
 import com.appvengers.business.interactors.NewDogLikeInteractor
 import com.appvengers.business.models.Dog
-import com.appvengers.tindogs.userProfile.UserProfileContract
 import com.appvengers.utils.LogTindogs
 
 class MatchPresenter(private  val view: MatchContract.View,
@@ -18,7 +16,7 @@ class MatchPresenter(private  val view: MatchContract.View,
             LogTindogs(dog.name, Log.DEBUG)
             newDogLikeInteractor.execute(userId,dog,localDogId,true,token, success =  { b: Boolean, dog: Dog? ->
 
-                if(b) {
+                if(!b) {
                     view.onMatchView("Es un match!")
                 }
             },error = {
