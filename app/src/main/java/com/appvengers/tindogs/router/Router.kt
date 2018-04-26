@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.appvengers.business.models.Dog
 import com.appvengers.business.models.User
+import com.appvengers.tindogs.dogProfile.DogProfileActivity
 import com.appvengers.tindogs.dogRegister.DogRegisterActivity
 import com.appvengers.tindogs.editUserProfile.EditUserProfileActivity
 import com.appvengers.tindogs.login.MainActivity
@@ -43,6 +44,10 @@ class Router
         fun navigateToEditUserProfile(activity: AppCompatActivity) {
             val intent = EditUserProfileActivity.intent(activity)
             activity.startActivityForResult(intent, EditUserProfileActivity.REQUEST_NUMBER)
+        }
+
+        fun navigateToDetailDogProfile(activity: AppCompatActivity, userId: String, dogId: String) {
+            activity.startActivity(DogProfileActivity.intent(activity,userId,dogId))
         }
     }
 }

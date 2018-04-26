@@ -5,6 +5,7 @@ import com.appvengers.business.models.Dog
 interface MatchContract {
     interface View {
         fun updateDogsList(dogs: MutableList<Dog>)
+        fun onMatchView(msg: String)
         fun onMatchViewError(msg: String)
 
     }

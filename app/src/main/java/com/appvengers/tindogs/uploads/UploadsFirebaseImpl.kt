@@ -14,9 +14,9 @@ class UploadsFirebaseImpl : Uploads {
         try {
             mReference.putFile(uri).addOnSuccessListener {
                 taskSnapshot: UploadTask.TaskSnapshot? ->
-                var url = taskSnapshot!!.downloadUrl
-                url.let {
-                    success(it!!)
+                val url = taskSnapshot!!.downloadUrl
+                url?.let {
+                    success(it)
                 }
 
             }.addOnFailureListener {

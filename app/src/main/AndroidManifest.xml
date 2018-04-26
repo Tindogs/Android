@@ -32,7 +32,8 @@
         <activity android:name=".userProfile.UserProfileActivity" />
         <activity android:name=".dogRegister.DogRegisterActivity" />
         <activity android:name=".match.MatchActivity" />
-        <activity android:name=".editUserProfile.EditUserProfileActivity"></activity>
+        <activity android:name=".editUserProfile.EditUserProfileActivity" />
+        <activity android:name=".dogProfile.DogProfileActivity"></activity>
     </application>
 
 </manifest>

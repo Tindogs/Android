@@ -7,6 +7,7 @@ import com.appvengers.repository.mappers.mapDogs
 import com.appvengers.repository.models.DogEntityWrapper
 import com.appvengers.repository.models.UserEntityWrapper
 import com.appvengers.repository.network.NetworkEntitiesFetcher
+import com.appvengers.repository.network.model.DogJsonEntity
 import com.appvengers.repository.network.model.MatchResultEntity
 import com.appvengers.repository.network.model.ResultUserJson
 import com.appvengers.utils.LogTindogs
@@ -158,7 +159,7 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 .switchIfEmpty { networkEntitiesFetcher.getUser(userId, token) }
                 .subscribe (
                         {
-                           LogTindogs("User obtenido: ${it.toString()}", Log.DEBUG)
+                           //LogTindogs("User obtenido: ${it.toString()}", Log.DEBUG)
                             success(it)
                         },
                         {
@@ -174,7 +175,9 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 .subscribe({
                     var resultDogs = mutableListOf<DogEntityWrapper>()
                     it.result.forEach {
-                        resultDogs.add(it.map(""))
+                        if(it.name != null) {
+                            resultDogs.add(it.map(""))
+                        }
                     }
                     Log.d("REPO",it.toString())
                     success(resultDogs)
@@ -189,6 +192,8 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                 success(it)
             }*/
         networkEntitiesFetcher.putNewDogLike(userId,localDogId,dog._id,likeValue,token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     LogTindogs(it.toString(),Log.DEBUG)
                     success(it.result)

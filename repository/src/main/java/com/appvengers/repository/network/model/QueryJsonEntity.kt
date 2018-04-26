@@ -4,5 +4,5 @@ data class QueryJsonEntity(
         val age: Double,
         val maxKms: Double,
         val reproductive: Boolean,
-        val breed: String
+        val breed: String?
 )

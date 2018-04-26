@@ -35,7 +35,7 @@ internal class CacheImpl(private val daoUserPersistable: DAOPersistable<UserEnti
             val user = daoUserPersistable.query(userId)
             if (user != null)
             {
-                LogTindogs("User obtenido de cache: " + user.toString(), Log.DEBUG)
+                //LogTindogs("User obtenido de cache: " + user.toString(), Log.DEBUG)
                 it.onNext(user)
             }
             it.onComplete()

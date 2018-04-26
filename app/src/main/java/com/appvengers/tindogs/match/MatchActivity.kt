@@ -4,14 +4,19 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
+import android.support.v7.app.AlertDialog.Builder
 import android.util.Log
 import android.view.View
 import com.appvengers.business.models.Dog
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.R
 import com.appvengers.tindogs.di.ObjectInjector
+import com.appvengers.tindogs.router.Router
+import com.appvengers.utils.LogTindogs
 import com.yuyakaido.android.cardstackview.CardStackView
 import com.yuyakaido.android.cardstackview.SwipeDirection
 import kotlinx.android.synthetic.main.activity_match.*
@@ -51,6 +56,7 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         associatePresenter()
         setup()
         reload()
+        //enableButtons(false)
 
     }
 
@@ -75,6 +81,7 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
                 if (cardStackView.getTopIndex() === adapter?.count?.minus(1)) {
                     Log.d("CardStackView", "Paginate: " + cardStackView.topIndex)
+                    enableButtons(false)
                     presenter.getDogsList(userId!!, dogId!!, token!!)
                 }
 
@@ -87,6 +94,8 @@ class MatchActivity : BaseActivity(), MatchContract.View {
                     //hacemos dislike al perrete que acabamos de ver
                     presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView.topIndex!!-1)!!,dogId!!, token!!)
                 }
+
+
 
             }
 
@@ -104,15 +113,24 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         })
 
         like_button_match.setOnClickListener {
-            swipeRight()
-            presenter.newDogLike(userId!!,adapter?.getItem(cardStackView.topIndex!!)!!,dogId!!,token!!)
+            if(cardStackView.topIndex != adapter?.count) {
+                swipeRight()
+                presenter.newDogLike(userId!!, adapter?.getItem(cardStackView.topIndex!!)!!, dogId!!, token!!)
+            }
         }
 
         dislike_button_match.setOnClickListener {
-            swipeLeft()
-            presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView.topIndex!!)!!,dogId!!, token!!)
+            if(cardStackView.topIndex != adapter?.count) {
+                swipeLeft()
+                presenter.newDogDislike(userId!!, adapter?.getItem(cardStackView.topIndex!!)!!, dogId!!, token!!)
+            }
         }
 
+    }
+
+    private fun enableButtons(b: Boolean) {
+        like_button_match.isEnabled = b
+        dislike_button_match.isEnabled = b
     }
 
     private fun reload() {
@@ -132,6 +150,18 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
     override fun updateDogsList(dogs: MutableList<Dog>) {
         paginate(dogs)
+    }
+
+    override fun onMatchView(msg: String) {
+        Builder(this)
+            .setTitle(msg)
+            .setPositiveButton("Seguir deslizando", { dialogInterface: DialogInterface, i: Int ->
+
+            })
+            .setNegativeButton("Ir al perfil" , { dialogInterface: DialogInterface, i: Int ->
+                Router.navigateToDetailDogProfile(this, "","")
+            })
+            .show()
     }
 
     override fun onMatchViewError(msg: String) {

@@ -110,7 +110,8 @@ fun QueryEntityWrapper.map(dogId: String): com.appvengers.db.QueryEntity
 
 fun QueryJsonEntity.map(): QueryEntityWrapper
 {
-    return QueryEntityWrapper(this.age, this.maxKms, this.reproductive, this.breed)
+    val breed = this.breed ?: "Desconocido"
+    return QueryEntityWrapper(this.age, this.maxKms, this.reproductive, breed)
 }
 fun com.appvengers.db.QueryEntity.map(): QueryEntityWrapper
 {

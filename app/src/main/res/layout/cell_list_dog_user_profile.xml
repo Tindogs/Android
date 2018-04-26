@@ -8,10 +8,10 @@
     <ImageView
         android:id="@+id/cell_list_dog_user_profile_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
+        android:layout_height="@android:dimen/thumbnail_height"
         android:contentDescription="@string/cell_list_dog_user_profile_dog_description"
-        tools:src="@drawable/dog_placeholder"/>
+        android:scaleType="center"
+        tools:src="@drawable/dog_placeholder" />
 
     <TextView
         android:id="@+id/cell_list_dog_user_profile_name"

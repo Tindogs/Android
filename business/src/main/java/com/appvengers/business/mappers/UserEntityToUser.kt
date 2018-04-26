@@ -18,7 +18,8 @@ internal fun User.map(): UserEntityWrapper
 
 internal fun DogEntityWrapper.mapToDog(): Dog
 {
-    return Dog(this ._id, this.name, this.age, this.breed, this.pureBreed, this.color, this.description, this.photos, this.query.map(), this.likesFromOthers.map { it.map(this._id) })
+    val breed = this.breed ?: ""
+    return Dog(this ._id, this.name, this.age, breed, this.pureBreed, this.color, this.description, this.photos, this.query.map(), this.likesFromOthers.map { it.map(this._id) })
 }
 
 internal fun Dog.map(userId: String): DogEntityWrapper

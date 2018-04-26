@@ -21,7 +21,7 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
     companion object
     {
         const val REQUEST_NUMBER = 123
-        private val REQUEST_CODE_USER_PHOTO = 1234
+        const val REQUEST_CODE_USER_PHOTO = 1234
         fun intent(context: Context): Intent
         {
             val intent = Intent(context, EditUserProfileActivity::class.java)
@@ -129,6 +129,7 @@ class EditUserProfileActivity : BaseActivity(), EditUserProfileContract.View {
     }
 
     override fun setNewPhotoUrl(uri: Uri) {
+        photoUrl = uri.toString()
         loadWithPicasso(uri)
     }
 
