@@ -15,8 +15,7 @@ class MatchPresenter(private  val view: MatchContract.View,
     override fun newDogLike(userId: String, dog: Dog, localDogId: String, token: String) {
             LogTindogs(dog.name, Log.DEBUG)
             newDogLikeInteractor.execute(userId,dog,localDogId,true,token, success =  { b: Boolean, dog: Dog? ->
-
-                if(!b) {
+                if(b) {
                     view.onMatchView("Es un match!")
                 }
             },error = {

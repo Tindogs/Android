@@ -1,11 +1,14 @@
 package com.appvengers.tindogs.dogProfile
 
-/**
- * Created by carlosledesma on 25/4/18.
- */
-class DogProfilePresenter: DogProfileContract.Presenter {
+import com.appvengers.business.interactors.GetDogDetailInteractor
+
+class DogProfilePresenter(private val view: DogProfileContract.View, private val getDogDetailInteractor: GetDogDetailInteractor  ): DogProfileContract.Presenter {
 
     override fun getDogProfile(userId: String, dogId: String, token: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        getDogDetailInteractor.execute(userId,dogId,token,success = {
+
+        }, error = {
+
+        })
     }
 }

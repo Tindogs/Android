@@ -199,4 +199,16 @@ internal class RepositoryImpl(private val cache: Cache, private val networkEntit
                     success(it.result)
                 }
     }
+
+    override fun getDogDetail(userId: String, dogId: String, token: String, success: (dog: DogEntityWrapper) -> Unit, error: (message: String) -> Unit) {
+        networkEntitiesFetcher.getDogDetail(userId, dogId, token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    LogTindogs(it.result.map(userId).toString(),Log.DEBUG)
+                    success(it.result.map(userId))
+                },{
+                    error(it.localizedMessage)
+                })
+    }
 }

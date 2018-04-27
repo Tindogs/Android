@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.appvengers.business.models.Dog
 import com.appvengers.tindogs.BaseActivity
 import com.appvengers.tindogs.R
+import com.appvengers.tindogs.di.ObjectInjector
 import com.appvengers.utils.KeyUserInfo
 
 class DogProfileActivity : BaseActivity(), DogProfileContract.View {
@@ -33,8 +34,16 @@ class DogProfileActivity : BaseActivity(), DogProfileContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dog_profile)
 
+        userInfo = getTokenAndUserId()!!
         userDogId = intent.getStringExtra(ARG_USER_ID)
         dogId = intent.getStringExtra(ARG_DOG_ID)
+        associatePresenter()
+        presenter.getDogProfile(userDogId, dogId, userInfo.token)
+    }
+
+    private fun associatePresenter()
+    {
+        presenter = DogProfilePresenter(this, ObjectInjector.buildGetDogDetailInteractor(this))
     }
 
     override fun bindDogData(dog: Dog) {

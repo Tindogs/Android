@@ -38,4 +38,6 @@ interface Repository
     fun newDogLike(userId: String, dog:DogEntityWrapper, localDogId: String, likeValue: Boolean, token: String, success: (resultMatch: MatchResultEntity) -> Unit, error: (message: String) -> Unit)
 
     fun getDogList(userId: String, dogId: String, token: String, success: (MutableList<DogEntityWrapper>) -> Unit, error: (message: String) -> Unit)
+
+    fun getDogDetail(userId: String, dogId: String, token: String, success: (dog: DogEntityWrapper) -> Unit, error: (message: String) -> Unit)
 }

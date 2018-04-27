@@ -39,9 +39,10 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
     private lateinit var presenter: MatchContract.Presenter
 
-    private var dogId : String? = null
-    private var userId : String? =  null
-    private var token : String? = null
+    private lateinit var dogId : String
+    private lateinit var userId : String
+    private lateinit var token : String
+    private lateinit var selectedDog : Dog
 
     private lateinit var cardStackView : CardStackView
     private var adapter : DogMatchCardAdapter? = null
@@ -56,7 +57,6 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         associatePresenter()
         setup()
         reload()
-        //enableButtons(false)
 
     }
 
@@ -81,22 +81,21 @@ class MatchActivity : BaseActivity(), MatchContract.View {
 
                 if (cardStackView.topIndex == adapter?.count?.minus(1)) {
                     Log.d("CardStackView", "Paginate: " + cardStackView.topIndex)
-                    enableButtons(false)
-                    presenter.getDogsList(userId!!, dogId!!, token!!)
+                    presenter.getDogsList(userId, dogId, token)
                 }
 
                 Log.d("CardStackView", "onCardSwiped: " + direction.toString())
-                if (direction.toString() == SWIPE_RIGHT) {
-                    //hacemos like al perrete que acabamos de ver
-                    presenter.newDogLike(userId!!,adapter?.getItem(cardStackView.topIndex!!-1)!!,dogId!!,token!!)
+                when(direction.toString()) {
+                    SWIPE_RIGHT -> {
+                        //hacemos like al perrete que acabamos de ver
+                        onNewDogLike(adapter?.getItem(cardStackView.topIndex - 1)!!)
+                    }
+                    SWIPE_LEFT -> {
+                        //hacemos dislike al perrete que acabamos de ver
+                        onNewDogDislike(adapter?.getItem(cardStackView.topIndex - 1)!!)
 
-                } else if(direction.toString() == SWIPE_LEFT) {
-                    //hacemos dislike al perrete que acabamos de ver
-                    presenter.newDogDislike(userId!!,adapter?.getItem(cardStackView.topIndex!!-1)!!,dogId!!, token!!)
+                    }
                 }
-
-
-
             }
 
             override fun onCardReversed() {
@@ -115,31 +114,28 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         like_button_match.setOnClickListener {
             if(cardStackView.topIndex != adapter?.count) {
                 swipeRight()
-                presenter.newDogLike(userId!!, adapter?.getItem(cardStackView.topIndex!!)!!, dogId!!, token!!)
+                onNewDogLike(adapter?.getItem(cardStackView.topIndex)!!)
+
             }
         }
 
         dislike_button_match.setOnClickListener {
             if(cardStackView.topIndex != adapter?.count) {
                 swipeLeft()
-                presenter.newDogDislike(userId!!, adapter?.getItem(cardStackView.topIndex!!)!!, dogId!!, token!!)
+                var dogSelected = adapter?.getItem(cardStackView.topIndex)!!
+                onNewDogDislike(dogSelected)
             }
         }
 
-    }
-
-    private fun enableButtons(b: Boolean) {
-        like_button_match.isEnabled = b
-        dislike_button_match.isEnabled = b
     }
 
     private fun reload() {
         cardStackView.visibility = View.GONE
         cardStackView.setAdapter(adapter)
         cardStackView.visibility = View.VISIBLE
-        userId =  getTokenAndUserId()?.userId
-        token = getTokenAndUserId()?.token
-        presenter.getDogsList(userId!!,dogId!!, token!!)
+        userId =  getTokenAndUserId()?.userId!!
+        token = getTokenAndUserId()?.token!!
+        presenter.getDogsList(userId,dogId, token)
     }
 
     private fun paginate(dogs: MutableList<Dog>) {
@@ -155,10 +151,11 @@ class MatchActivity : BaseActivity(), MatchContract.View {
     override fun onMatchView(msg: String) {
         Builder(this)
             .setTitle(msg)
-            .setPositiveButton("Seguir deslizando", { dialogInterface: DialogInterface, i: Int ->
+            .setPositiveButton("Seguir deslizando", { _ : DialogInterface, _    : Int ->
 
             })
-            .setNegativeButton("Ir al perfil" , { dialogInterface: DialogInterface, i: Int ->
+            .setNegativeButton("Ir al perfil" , { _ : DialogInterface, _ : Int ->
+
                 Router.navigateToDetailDogProfile(this, "","")
             })
             .show()
@@ -220,5 +217,14 @@ class MatchActivity : BaseActivity(), MatchContract.View {
         overlayAnimationSet.playTogether(overlayAnimator)
 
         cardStackView.swipe(SwipeDirection.Right, cardAnimationSet, overlayAnimationSet)
+    }
+
+    private fun onNewDogLike(dog: Dog) {
+        selectedDog = dog
+        presenter.newDogLike(userId,dog,dogId,token)
+    }
+
+    private fun onNewDogDislike(dog: Dog) {
+        presenter.newDogDislike(userId,dog,dogId,token)
     }
 }

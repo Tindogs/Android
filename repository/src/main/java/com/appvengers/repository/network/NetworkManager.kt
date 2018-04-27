@@ -1,10 +1,7 @@
 package com.appvengers.repository.network
 
 import com.appvengers.repository.models.QueryEntityWrapper
-import com.appvengers.repository.network.model.ResultDogsJson
-import com.appvengers.repository.network.model.ResultLikesJson
-import com.appvengers.repository.network.model.ResultUserJson
-import com.appvengers.repository.network.model.UserJsonEntity
+import com.appvengers.repository.network.model.*
 import io.reactivex.Flowable
 import retrofit2.http.*
 
@@ -65,4 +62,9 @@ internal interface NetworkManager
                        @Path("dog_who_like_id") dogWhoLikeId: String,
                        @Field("like")  like: Boolean,
                        @Header("token") token: String) : Flowable<ResultLikesJson>
+
+    @GET("users/{user_id}/dogs/{dog_id}")
+    fun getDogDetail(@Path("user_id") userId: String,
+                     @Path("dog_id") dogId: String,
+                     @Header("token") token: String) : Flowable<ResultDogDetailJson>
 }
